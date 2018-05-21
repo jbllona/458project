@@ -18,7 +18,7 @@ display_width  = 640
 display_height = 480
 
 ALL_CONNECTED_GRAPH = drawGraphFromFile('fullconnect.txt')
-# LINE_GRAPH          = drawGraphFromFile('lineGraph.txt')
+LINE_GRAPH          = drawGraphFromFile('line.txt')
 MESH_GRAPH          = drawGraphFromFile('mesh.txt')
 RING_GRAPH          = drawGraphFromFile('ring.txt')
 STAR_GRAPH          = drawGraphFromFile('star.txt')
@@ -98,6 +98,15 @@ def getComputerLocationsOnDisplay(typeOfGraph):
             centerOfFieldY - ((display_height / 3) * N.cos((x - 2) * ((2 * N.pi) / numberOfNodes)))])
     elif typeOfGraph == graphType.TREE:
         buildTreeComputerLocations(retVal)
+    elif typeOfGraph == graphType.LINE:
+        numberOfNodes = N.amax(N.array(LINE_GRAPH).astype(int))
+        for x in range(1, (numberOfNodes + 1)):
+            yVal = None
+            if x % 2 == 0:
+                yVal = display_height/3
+            else:
+                yVal = 2*display_height/3
+            retVal.append([x, x*display_width/numberOfNodes - 35, yVal])
 
     return retVal
 
@@ -117,8 +126,6 @@ class dataToDisplay:
     #this needs to be set to the type of graph (star, ring, etc)
     typeOfGraph = graphType.NONE
     
-    #this represents the nodes that the virus starts at
-    startNodes = None
 
     #this list shall contain lists of tuples representing how the virus spreads.
     # 
@@ -131,7 +138,6 @@ class dataToDisplay:
     # from node 1 to node 4, and node 2 to nodes 5 and 6
     animationSteps = None
     def __init__(self):
-        self.startNodes = []
         self.animationSteps = []
 
 linesToDraw = []
@@ -177,18 +183,13 @@ def startAnimation(computerPositions, dataToDisplay):
             for x in range(1, computerPositions[:,0].size):
                 numberPairs = [(computerPositions[1,1], computerPositions[1,2]), (computerPositions[x,1], computerPositions[x,2])]
                 pygame.draw.lines(screen, (100,100,100), False, numberPairs, 2)
-                # screen.blit(computerImage,(numberPairs[1][0]-25, numberPairs[1][1]-25))
         elif dataToDisplay.typeOfGraph == graphType.RING:
-            # screen.blit(computerImage, (computerPositions[1,1] - 25, computerPositions[1,2] - 25))
             numberPairs = [(computerPositions[-1,1], computerPositions[-1,2]), (computerPositions[1,1], computerPositions[1,2])]
             pygame.draw.lines(screen, (100,100,100), False, numberPairs,2)
             for x in range(2, computerPositions[:,0].size):
                 numberPairs = [(computerPositions[x - 1,1], computerPositions[x - 1,2]), (computerPositions[x,1], computerPositions[x,2])]
                 pygame.draw.lines(screen, (100,100,100), False, numberPairs, 2)
-                # screen.blit(computerImage,(numberPairs[1][0]-25, numberPairs[1][1]-25))
         elif dataToDisplay.typeOfGraph == graphType.MESH:
-            # for x in range(1, computerPositions[:,0].size):
-                # screen.blit(computerImage,  (computerPositions[x,1]-25, computerPositions[x,2]-25))
             for edge in MESH_GRAPH:
                 x1 = computerPositions[int(edge[0]),1]
                 y1 = computerPositions[int(edge[0]),2]
@@ -197,8 +198,6 @@ def startAnimation(computerPositions, dataToDisplay):
                 numberPairs = [(x1,y1),(x2,y2)]
                 pygame.draw.lines(screen, (100,100,100), False, numberPairs, 2)
         elif dataToDisplay.typeOfGraph == graphType.ALL_CONNECTED:
-            # for x in range(1, computerPositions[:,0].size):
-            #     screen.blit(computerImage,  (computerPositions[x,1]-25, computerPositions[x,2]-25))
             for edge in ALL_CONNECTED_GRAPH:
                 x1 = computerPositions[int(edge[0]),1]
                 y1 = computerPositions[int(edge[0]),2]
@@ -207,9 +206,15 @@ def startAnimation(computerPositions, dataToDisplay):
                 numberPairs = [(x1,y1),(x2,y2)]
                 pygame.draw.lines(screen, (100,100,100), False, numberPairs, 2)
         elif dataToDisplay.typeOfGraph == graphType.TREE:
-            # for x in range(1, computerPositions[:,0].size):
-            #     screen.blit(computerImage,  (computerPositions[x,1]-25, computerPositions[x,2]-25))
             for edge in TREE_GRAPH:
+                x1 = computerPositions[int(edge[0]),1]
+                y1 = computerPositions[int(edge[0]),2]
+                x2 = computerPositions[int(edge[1]),1]
+                y2 = computerPositions[int(edge[1]),2]
+                numberPairs = [(x1,y1),(x2,y2)]
+                pygame.draw.lines(screen, (100,100,100), False, numberPairs, 2)
+        elif dataToDisplay.typeOfGraph == graphType.LINE:
+            for edge in LINE_GRAPH:
                 x1 = computerPositions[int(edge[0]),1]
                 y1 = computerPositions[int(edge[0]),2]
                 x2 = computerPositions[int(edge[1]),1]
