@@ -1,46 +1,4 @@
-class System(object):
-    """ Create and manage a system, which is going to be a node for our graph.
-    
-    Attributes 
-    ==========
-    state: int 
-        current state of servers: Immune(0), susceptible(1), infected(2)
-                                    , or Recovered(3)
-    
-    neighbors: 
-        a list of neighbor systems. 
-
-    """
-        
-    IMMUNE = 0
-    SUSCEPTIBLE = 1
-    INFECTED = 2
-    RECOVERED = 3
-    
-        
-    def __init__(self, state=rand()%2):
-        self.state = state
-        self.neighbors = []
-
-    def getState(self):
-        return self.state
-        
-    def infectSystem(self):
-        self.state = 2
-        
-     def show_state(self, server):
-        if server.state == 0:
-            return "Immune System"
-        elif server.state == 1:
-            return "Susceptible System"
-        elif server.state == -1:
-            return "Infected System"
-        elif server.state == 2:
-            return "Recovered System"
-        else:
-            "Wrong state"
-        
-     
+import System
             
         
 class Network:
@@ -57,18 +15,23 @@ class Network:
         self.infected_systems = []		
         self.directed = directed
 
-        
-    def add_system(self, state):
-        newSystem = System(state)
-        self.systems.append(newSystem)
-        
-        
-    def add_neighbor(self, system1, system2):
-        system1.neighbors.append(system2)
-        system2.neighbors.append(system1)
 
-    def remove_system(self, server):
+    def create_network(shape, txt):
+        if shape == 1:
+            line_network(txt)
+        elif shape == 2:
+            mesh_network(txt)
+        elif shape == 3:
+            ring_network(txt)
+        elif shape == 4:
+            star_network(txt)
+        elif shape == 5:
+            tree_network(txt)
+            
+    def mesh_network(txt):
         
+    def ring_network(txt):
         
-    def update_state(self, server, state):
-        server.state = state
+    def star_network(txt):
+
+    def tree_network(txt):
