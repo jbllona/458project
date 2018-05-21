@@ -17,13 +17,12 @@ def drawGraphFromFile(fileName):
 display_width  = 640
 display_height = 480
 
+ALL_CONNECTED_GRAPH = drawGraphFromFile('fullconnect.txt')
+# LINE_GRAPH          = drawGraphFromFile('lineGraph.txt')
+MESH_GRAPH          = drawGraphFromFile('mesh.txt')
 RING_GRAPH          = drawGraphFromFile('ring.txt')
 STAR_GRAPH          = drawGraphFromFile('star.txt')
-MESH_GRAPH          = drawGraphFromFile('mesh.txt')
-ALL_CONNECTED_GRAPH = drawGraphFromFile('fullconnect.txt')
-# BUS_GRAPH           = drawGraphFromFile('busGraph.txt')
 # HYBRID_GRAPH        = drawGraphFromFile('hybridGraph.txt')
-# LINE_GRAPH          = drawGraphFromFile('lineGraph.txt')
 # TREE_GRAPH          = drawGraphFromFile('treeGraph.txt')
 
 computerImage = pygame.image.load("compImage.png")
