@@ -20,7 +20,7 @@ display_height = 480
 RING_GRAPH          = drawGraphFromFile('ring.txt')
 STAR_GRAPH          = drawGraphFromFile('star.txt')
 MESH_GRAPH          = drawGraphFromFile('mesh.txt')
-# ALL_CONNECTED_GRAPH = drawGraphFromFile('allConnectedGraph.txt')
+ALL_CONNECTED_GRAPH = drawGraphFromFile('fullconnect.txt')
 # BUS_GRAPH           = drawGraphFromFile('busGraph.txt')
 # HYBRID_GRAPH        = drawGraphFromFile('hybridGraph.txt')
 # LINE_GRAPH          = drawGraphFromFile('lineGraph.txt')
@@ -42,7 +42,7 @@ def getComputerLocationsOnDisplay(typeOfGraph):
             retVal.append([x, \
             centerOfFieldX + ((display_height / 3) * N.sin((x - 2) * ((2 * N.pi) / (numberOfNodes-1)))), \
             centerOfFieldY - ((display_height / 3) * N.cos((x - 2) * ((2 * N.pi) / (numberOfNodes-1))))])
-    elif typeOfGraph == graphType.RING or typeOfGraph == graphType.MESH:
+    elif typeOfGraph == graphType.RING or typeOfGraph == graphType.MESH or typeOfGraph == graphType.ALL_CONNECTED:
         centerOfFieldX = int(display_width/2)
         centerOfFieldY = int(display_height/2)
 
@@ -151,7 +151,16 @@ def startAnimation(computerPositions, dataToDisplay):
                 y2 = computerPositions[int(edge[1]),2]
                 numberPairs = [(x1,y1),(x2,y2)]
                 pygame.draw.lines(screen, (100,100,100), False, numberPairs, 2)
-
+        elif dataToDisplay.typeOfGraph == graphType.ALL_CONNECTED:
+            for x in range(1, computerPositions[:,0].size):
+                screen.blit(computerImage,  (computerPositions[x,1]-25, computerPositions[x,2]-25))
+            for edge in ALL_CONNECTED_GRAPH:
+                x1 = computerPositions[int(edge[0]),1]
+                y1 = computerPositions[int(edge[0]),2]
+                x2 = computerPositions[int(edge[1]),1]
+                y2 = computerPositions[int(edge[1]),2]
+                numberPairs = [(x1,y1),(x2,y2)]
+                pygame.draw.lines(screen, (100,100,100), False, numberPairs, 2)
 
         #draw completed lines
         for x in range(stepsDone):
