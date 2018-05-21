@@ -15,8 +15,13 @@ displayData = disp.dataToDisplay()
 # displayData.animationSteps.append([(3,4), (3,5)])
 # displayData.typeOfGraph = disp.graphType.MESH
 
-displayData.animationSteps.append([(1,2), (1,8), (1,3)])
-displayData.animationSteps.append([(3,4), (3,5)])
-displayData.typeOfGraph = disp.graphType.ALL_CONNECTED
+# displayData.animationSteps.append([(1,2), (1,8), (1,3)])
+# displayData.animationSteps.append([(3,4), (3,5)])
+# displayData.typeOfGraph = disp.graphType.ALL_CONNECTED
+
+displayData.animationSteps.append([(1,2),(1,3)])
+displayData.animationSteps.append([(2,4),(2,5),(3,6),(3,7)])
+displayData.animationSteps.append([(4,8)])
+displayData.typeOfGraph = disp.graphType.TREE
 
 disp.display(displayData)
