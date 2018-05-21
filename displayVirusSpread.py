@@ -35,7 +35,9 @@ def getComputerLocationsOnDisplay(typeOfGraph):
         numberOfNodes = N.amax(N.array(STAR_GRAPH).astype(int))
         retVal.append([1, centerOfFieldX, centerOfFieldY])
         for x in range(2, (numberOfNodes + 1)):
-            retVal.append([x, centerOfFieldX + ((display_height / 3) * N.sin((x - 2) * ((2 * N.pi) / (numberOfNodes-1)))), centerOfFieldY - ((display_height / 3) * N.cos((x - 2) * ((2 * N.pi) / (numberOfNodes-1))))])
+            retVal.append([x, \
+            centerOfFieldX + ((display_height / 3) * N.sin((x - 2) * ((2 * N.pi) / (numberOfNodes-1)))), \
+            centerOfFieldY - ((display_height / 3) * N.cos((x - 2) * ((2 * N.pi) / (numberOfNodes-1))))])
     return retVal
 
 class graphType(Enum):
