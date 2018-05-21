@@ -26,6 +26,10 @@ STAR_GRAPH          = drawGraphFromFile('starGraph.txt')
 # LINE_GRAPH          = drawGraphFromFile('lineGraph.txt')
 # TREE_GRAPH          = drawGraphFromFile('treeGraph.txt')
 
+computerImage = pygame.image.load("compImage.png")
+computerImage = pygame.transform.scale(computerImage, (50, 50))
+
+
 def getComputerLocationsOnDisplay(typeOfGraph):
     retVal = [[0, -1, -1]]
     if typeOfGraph == graphType.STAR:
@@ -82,7 +86,17 @@ def roundTuple(tuple):
 def distanceBetweenTwoPoints(pointA, pointB):
     return ((pointB[0] - pointA[0])**2 + (pointB[1] - pointA[1])**2)**.5
 
-def startAnimation(computerPositions, typeOfGraph):
+def nodeToLocations(nodeMoves, positionsInImage):
+    retVal = []
+    for move in nodeMoves:
+        x1 = positionsInImage[move[0]][1]
+        y1 = positionsInImage[move[0]][2]
+        x2 = positionsInImage[move[1]][1]
+        y2 = positionsInImage[move[1]][2]
+        retVal.append([(x1,y1),(x2,y2), 0])
+    return retVal
+
+def startAnimation(computerPositions, dataToDisplay):
     clock = pygame.time.Clock()
     displayImage = None
     done = False
@@ -90,9 +104,12 @@ def startAnimation(computerPositions, typeOfGraph):
     displayImage = N.zeros((display_width,display_height,3), dtype = N.uint8) + 255
     pygame.init()
     screen = pygame.display.set_mode((display_width,display_height))
+    stepsDone = 0
+    linesToDraw.append(nodeToLocations(dataToDisplay.animationSteps[0], computerPositions))
 
     while not done:
         iterationDone = False
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -100,13 +117,19 @@ def startAnimation(computerPositions, typeOfGraph):
         
         screen.fill((255,255,255))
 
-        if typeOfGraph == graphType.STAR:
+        if dataToDisplay.typeOfGraph == graphType.STAR:
             for x in range(1, computerPositions[:,0].size):
-            # for x in range(1, 5):
                 numberPairs = [(computerPositions[1,1], computerPositions[1,2]), (computerPositions[x,1], computerPositions[x,2])]
                 pygame.draw.lines(screen, (100,100,100), False, numberPairs, 2)
+                screen.blit(computerImage,(numberPairs[1][0]-25, numberPairs[1][1]-25))
 
-        for line in linesToDraw:
+        #draw completed lines
+        for x in range(stepsDone):
+            for line in linesToDraw[x]:
+                pygame.draw.lines(screen, (255,0,0), False, (line[0],line[1]),4)
+
+        # draw in progress lines
+        for line in linesToDraw[stepsDone]:
             totalDistance = distanceBetweenTwoPoints(line[0],line[1])
             x3 = line[0][0] + ((line[2]/totalDistance) * (line[1][0] - line[0][0]))
             y3 = line[0][1] + ((line[2]/totalDistance) * (line[1][1] - line[0][1]))
@@ -121,12 +144,16 @@ def startAnimation(computerPositions, typeOfGraph):
         pygame.display.update()
 
         if iterationDone == True:
-            # addNextDataToLinesToDraw
-            linesToDraw.append([pointC, pointB, 0])
-        
+            stepsDone += 1
+            if stepsDone == len(dataToDisplay.animationSteps):
+                done = True
+            else:
+                linesToDraw.append(nodeToLocations(dataToDisplay.animationSteps[stepsDone], computerPositions))
         clock.tick(60)
+
+        
 
 def display(data):
     computerLocations = N.array(getComputerLocationsOnDisplay(data.typeOfGraph))
-    startAnimation(computerLocations, data.typeOfGraph)
+    startAnimation(computerLocations, data)
     
