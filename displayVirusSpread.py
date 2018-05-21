@@ -9,16 +9,16 @@ def drawGraphFromFile(fileName):
         for line in file:
             if line[0] != '#':
                 if line.find('\n') != -1:
-                    retVal.append(line[:line.find('\n')].split(" "))
+                    retVal.append(line[:line.find('\n')].split("\t"))
                 else:
-                    retVal.append(line.split(" "))
+                    retVal.append(line.split("\t"))
     return retVal
 
 display_width  = 640
 display_height = 480
 
-# RING_GRAPH          = drawGraphFromFile('ringGraph.txt')
-STAR_GRAPH          = drawGraphFromFile('starGraph.txt')
+RING_GRAPH          = drawGraphFromFile('ring.txt')
+STAR_GRAPH          = drawGraphFromFile('star.txt')
 # MESH_GRAPH          = drawGraphFromFile('meshGraph.txt')
 # ALL_CONNECTED_GRAPH = drawGraphFromFile('allConnectedGraph.txt')
 # BUS_GRAPH           = drawGraphFromFile('busGraph.txt')
@@ -42,6 +42,16 @@ def getComputerLocationsOnDisplay(typeOfGraph):
             retVal.append([x, \
             centerOfFieldX + ((display_height / 3) * N.sin((x - 2) * ((2 * N.pi) / (numberOfNodes-1)))), \
             centerOfFieldY - ((display_height / 3) * N.cos((x - 2) * ((2 * N.pi) / (numberOfNodes-1))))])
+    elif typeOfGraph == graphType.RING:
+        centerOfFieldX = int(display_width/2)
+        centerOfFieldY = int(display_height/2)
+
+        numberOfNodes = N.amax(N.array(RING_GRAPH).astype(int))
+        for x in range(1, (numberOfNodes + 1)):
+            retVal.append([x, \
+            centerOfFieldX + ((display_height / 3) * N.sin((x - 2) * ((2 * N.pi) / numberOfNodes))), \
+            centerOfFieldY - ((display_height / 3) * N.cos((x - 2) * ((2 * N.pi) / numberOfNodes)))])
+
     return retVal
 
 class graphType(Enum):
@@ -117,9 +127,19 @@ def startAnimation(computerPositions, dataToDisplay):
         
         screen.fill((255,255,255))
 
+        # draw the computer images at each node, and the faint gray lines
         if dataToDisplay.typeOfGraph == graphType.STAR:
             for x in range(1, computerPositions[:,0].size):
                 numberPairs = [(computerPositions[1,1], computerPositions[1,2]), (computerPositions[x,1], computerPositions[x,2])]
+                pygame.draw.lines(screen, (100,100,100), False, numberPairs, 2)
+                screen.blit(computerImage,(numberPairs[1][0]-25, numberPairs[1][1]-25))
+        elif dataToDisplay.typeOfGraph == graphType.RING:
+
+            screen.blit(computerImage, (computerPositions[1,1] - 25, computerPositions[1,2] - 25))
+            numberPairs = [(computerPositions[-1,1], computerPositions[-1,2]), (computerPositions[1,1], computerPositions[1,2])]
+            pygame.draw.lines(screen, (100,100,100), False, numberPairs,2)
+            for x in range(2, computerPositions[:,0].size):
+                numberPairs = [(computerPositions[x - 1,1], computerPositions[x - 1,2]), (computerPositions[x,1], computerPositions[x,2])]
                 pygame.draw.lines(screen, (100,100,100), False, numberPairs, 2)
                 screen.blit(computerImage,(numberPairs[1][0]-25, numberPairs[1][1]-25))
 
