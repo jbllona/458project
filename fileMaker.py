@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 """
 Cameron Padua
 Group Project
@@ -15,11 +15,19 @@ you can vary the size.
 
 Note: Code written for Python 3.6
 
+
+Notes to Use:
+    if you are in a linux enviroment, make sure to chmod +x the file
+    run the script by using ./fileMaker 'method()'
+    for example ./fileMaker 'main(14)' or ./fileMaker 'star(14)'
+    
+    if you are using Windows, you will need to do something like (I think)
+    pyhton fileMaker.py 'method(10)'
 """
 
 import numpy as np
 import random
-
+import sys
 
 def line(maxNode):
     #fileName = "line"+str(maxNode)+".txt"
@@ -139,3 +147,5 @@ def main(maxNumber = 10):
     tree(maxNumber)
     fullConnected(maxNumber)
     mesh(maxNumber)
+
+eval(sys.argv[1])
