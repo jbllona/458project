@@ -2,6 +2,7 @@ import numpy as N
 import pygame
 from enum import Enum
 import sys
+from time import sleep
 
 def drawGraphFromFile(fileName):
     retVal = []
@@ -12,6 +13,7 @@ def drawGraphFromFile(fileName):
                     retVal.append(line[:line.find('\n')].split("\t"))
                 else:
                     retVal.append(line.split("\t"))
+    file.close()
     return retVal
 
 display_width  = 640
@@ -253,8 +255,9 @@ def startAnimation(computerPositions, dataToDisplay):
             else:
                 linesToDraw.append(nodeToLocations(dataToDisplay.animationSteps[stepsDone], computerPositions))
         clock.tick(60)
-
-        
+    sleep(1)
+    pygame.display.quit()
+    pygame.quit()
 
 def display(data):
     computerLocations = N.array(getComputerLocationsOnDisplay(data.typeOfGraph))

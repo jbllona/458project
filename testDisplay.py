@@ -1,36 +1,54 @@
 import displayVirusSpread as disp
+import fileMaker as make
+from time import sleep
 
 displayData = disp.dataToDisplay()
-# # displayData.startNodes.append(1)
-# displayData.animationSteps.append([(1,2),(1,4)])
-# displayData.animationSteps.append([(1,3),(1,5),(1,6)])
-# displayData.animationSteps.append([(1,7),(1,8)])
-# displayData.typeOfGraph = disp.graphType.STAR
 
-# displayData.animationSteps.append([(1,2), (1,8)])
-# displayData.animationSteps.append([(2,3), (8,7)])
-# displayData.typeOfGraph = disp.graphType.RING
+# for current in range(5,15):
+#     make.line(current)
+#     sleep(1) # Time in seconds.
+#     displayData.animationSteps.append([(1,2)])
+#     disp.LINE_GRAPH = disp.drawGraphFromFile('line.txt')
+#     displayData.typeOfGraph = disp.graphType.LINE
+#     disp.display(displayData)
+# 
+# for current in range(5,15):
+#     make.ring(current)
+#     sleep(1) # Time in seconds.
+#     displayData.animationSteps.append([(1,2)])
+#     disp.RING_GRAPH = disp.drawGraphFromFile('ring.txt')
+#     displayData.typeOfGraph = disp.graphType.RING
+#     disp.display(displayData)
+    
+# for current in range(5,15):
+#     make.star(current)
+#     displayData.animationSteps.append([(1,2)])
+#     disp.STAR_GRAPH = disp.drawGraphFromFile('star.txt')
+#     displayData.typeOfGraph = disp.graphType.STAR
+#     disp.display(displayData)
 
-# displayData.animationSteps.append([(1,2), (1,8), (1,3)])
-# displayData.animationSteps.append([(3,4), (3,5)])
-# displayData.typeOfGraph = disp.graphType.MESH
+#cannot make files larger than 11
+#Also always does 11 computer no matter what
+# for current in range(5,11):
+#     make.fullConnected(current)
+#     sleep(1) # Time in seconds.
+#     displayData.animationSteps.append([(1,2)])
+#     disp.ALL_CONNECTED_GRAPH = disp.drawGraphFromFile('fullconnect.txt')
+#     displayData.typeOfGraph = disp.graphType.ALL_CONNECTED
+#     disp.display(displayData)
 
-# displayData.animationSteps.append([(1,2), (1,8), (1,3)])
-# displayData.animationSteps.append([(3,4), (3,5)])
-# displayData.typeOfGraph = disp.graphType.ALL_CONNECTED
-
-# displayData.animationSteps.append([(1,2),(1,3)])
-# displayData.animationSteps.append([(2,4),(2,5),(3,6),(3,7)])
-# displayData.animationSteps.append([(4,8)])
-# displayData.typeOfGraph = disp.graphType.TREE
-
-displayData.animationSteps.append([(1,2)])
-displayData.animationSteps.append([(2,3)])
-displayData.animationSteps.append([(3,4)])
-displayData.animationSteps.append([(4,5)])
-displayData.animationSteps.append([(5,6)])
-displayData.animationSteps.append([(6,7)])
-displayData.animationSteps.append([(7,8)])
-displayData.typeOfGraph = disp.graphType.LINE
-
-disp.display(displayData)
+# for current in range(5,15):
+    # make.tree(current)
+    # sleep(1) # Time in seconds.
+    # displayData.animationSteps.append([(1,2)])
+    # disp.TREE_GRAPH = disp.drawGraphFromFile('tree.txt')
+    # displayData.typeOfGraph = disp.graphType.TREE
+    # disp.display(displayData)
+#Always does 11 computer no matter what   
+for current in range(5,15):
+    make.mesh(current)
+    sleep(1) # Time in seconds.
+    displayData.animationSteps.append([(1,2)])
+    disp.MESH_GRAPH = disp.drawGraphFromFile('mesh.txt')
+    displayData.typeOfGraph = disp.graphType.MESH
+    disp.display(displayData)
