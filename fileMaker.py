@@ -42,7 +42,8 @@ def line(maxNode):
     
 def fullConnected(maxNode = 10):
     record = np.zeros((maxNode+1,maxNode+1),dtype=bool)
-    fileName = "fullyConnected"+str(maxNode)+".txt"
+    #fileName = "fullyConnected"+str(maxNode)+".txt"
+    fileName = "fullconnect.txt"
     File = open(fileName,"w")
     
     for x in range(1,maxNode):
@@ -148,4 +149,4 @@ def main(maxNumber = 10):
     fullConnected(maxNumber)
     mesh(maxNumber)
 
-eval(sys.argv[1])
+#eval(sys.argv[1])
