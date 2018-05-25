@@ -24,7 +24,31 @@ class logicBomb:
             return True
         return False
 
-
+class trojan:
+  strength = N.random.uniform(0, .6)
+ 
+  def infectOrNot(self, network, nodeID):
+    """ every turn, an infected node sends the virus
+        to all neighbor nodes. This makes those nodes suceptable.
+        On the next turn, a scceptable node is infected if its strength
+        is less than that of the virus. If it does not become infected,
+        it becomes immune, and cannot become suceptable or spread the virus."""
+ 
+    retVal = None
+ 
+    if network.infectedList[nodeID] == Network.state.immune:
+      retVal = False
+    else:
+      if network.infectedList[nodeID] == Network.state.clean:
+        network.infectedList[nodeID] = Network.state.suceptable
+        retVal = False
+      elif network.infectedList[nodeID] == Network.state.suceptable:
+        if network.edges[nodeID].suceptibility < self.strength:
+          retVal = True
+        else:
+          network.infectedList[nodeID] = Network.state.immune
+ 
+    return retVal
 
 class worm:
     infecteCount = 0
