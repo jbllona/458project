@@ -1,4 +1,5 @@
 import numpy as N
+import Network
 import time
 
 """ this is an example virus, it has a 50% chance of infecting any neighboring viruses.
@@ -10,8 +11,9 @@ class SuperVirus:
   def infectOrNot(self, network, nodeID):
     retVal = N.random.uniform() 
     return retVal < self.chance
+
 class logicBomb:
-    infectedCount = 0;
+    infectedCount = 0
     def infectOrNot(self, network, nodeID):
         #get current time in milliseconds
         ms = int(round(time.time() * 1000))
@@ -24,3 +26,28 @@ class logicBomb:
             return True
         return False
         
+class trojan:
+  strength = N.random.uniform(0, .6)
+
+  def infectOrNot(self, network, nodeID):
+    """ every turn, an infected node sends the virus
+        to all neighbor nodes. This makes those nodes suceptable.
+        On the next turn, a scceptable node is infected if its strength
+        is less than that of the virus. If it does not become infected,
+        it becomes immune, and cannot become suceptable or spread the virus."""
+
+    retVal = None
+
+    if network.infectedList[nodeID] == Network.state.immune:
+      retVal = False
+    else:
+      if network.infectedList[nodeID] == Network.state.clean:
+        network.infectedList[nodeID] = Network.state.suceptable
+        retVal = False
+      elif network.infectedList[nodeID] == Network.state.suceptable:
+        if network.edges[nodeID].suceptibility < self.strength:
+          retVal = True
+        else:
+          network.infectedList[nodeID] = Network.state.immune
+
+    return retVal

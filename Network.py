@@ -1,11 +1,14 @@
 from system import System
 from enum import Enum
+import numpy as N
 import displayVirusSpread as disp
 
 class state(Enum):
     none          = 0
     clean         = 1
     infected      = 2
+    suceptable    = 3
+    immune        = 4
 
 class graphType(Enum):
     NONE          = 0
@@ -21,8 +24,10 @@ class graphType(Enum):
 class Node:
     nodeID = 0
     adjacentNodes = None
+    suceptibility = None
     def __init__(self, nodeNum):
         self.nodeID = nodeNum
+        self.suceptibility = N.random.uniform(.3, 1)
         self.adjacentNodes = []
 
 
