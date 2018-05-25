@@ -53,38 +53,38 @@ class trojan:
     return retVal
 
 class worm:
-    infecteCount = 0
+  infecteCount = 0
 
-    def chooseTarget(self, network, count):
-        # node that has the most number of neighbors
-        maxNode = None
-        max_neighbor = 0
-        for node in network.edges[count].adjacentNodes:
-            n_neighbor = len(node.adjacentNodes)
-            if (n_neighbor > max_neighbor):
-                max_neighbor = n_neighbor
-                maxNode = node
-        return maxNode
+  def chooseTarget(self, network, count):
+    # node that has the most number of neighbors
+    maxNode = None
+    max_neighbor = 0
+    for node in network.edges[count].adjacentNodes:
+      n_neighbor = len(node.adjacentNodes)
+      if (n_neighbor > max_neighbor):
+        max_neighbor = n_neighbor
+        maxNode = node
+    return maxNode
 
-    def infectOrNot(self, netowrk, nodeID):
+  def infectOrNot(self, netowrk, nodeID):
 
-          """ every turn, an infected node sends the virus
-        to all neighbor nodes. This makes those nodes suceptable.
-        On the next turn, a scceptable node is infected if its strength
-        is less than that of the virus. If it does not become infected,
-        it becomes immune, and cannot become suceptable or spread the virus."""
+    """ every turn, an infected node sends the virus
+    to all neighbor nodes. This makes those nodes suceptable.
+    On the next turn, a scceptable node is infected if its strength
+    is less than that of the virus. If it does not become infected,
+    it becomes immune, and cannot become suceptable or spread the virus."""
 
-        retVal = None
+    retVal = None
 
-        if network.infectedList[nodeID] == Network.state.immune:
-            retVal = False
-        else:
-            if network.infectedList[nodeID] == Network.state.clean:
-                network.infectedList[nodeID] = Network.state.suceptable
-                retVal = False
-            elif network.infectedList[nodeID] == Network.state.suceptable:
+    if network.infectedList[nodeID] == Network.state.immune:
+      retVal = False
+    else:
+      if network.infectedList[nodeID] == Network.state.clean:
+        network.infectedList[nodeID] = Network.state.suceptable
+        retVal = False
+      elif network.infectedList[nodeID] == Network.state.suceptable:
         if network.edges[nodeID].suceptibility < self.strength:
           retVal = True
         else:
           network.infectedList[nodeID] = Network.state.immune
-        return retVal
+    return retVal
