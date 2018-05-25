@@ -68,12 +68,7 @@ class worm:
 
   def infectOrNot(self, netowrk, nodeID):
 
-    """ every turn, an infected node sends the virus
-    to all neighbor nodes. This makes those nodes suceptable.
-    On the next turn, a scceptable node is infected if its strength
-    is less than that of the virus. If it does not become infected,
-    it becomes immune, and cannot become suceptable or spread the virus."""
-
+    nodeID = self.chooseTarget(network, count)
     retVal = None
 
     if network.infectedList[nodeID] == Network.state.immune:
