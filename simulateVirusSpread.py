@@ -20,13 +20,23 @@ def runOnce(network, startingPoint, virus):
     count = 1
     for node in network.infectedList[1:]:
       if node == n.state.infected:
-        for neighbor in network.edges[count].adjacentNodes:
-          if network.infectedList[neighbor] != n.state.infected:  
-            if virus.infectOrNot(network, neighbor):
-              currentTurnMoves.append((count, neighbor))
-              network.infectedList[neighbor] = n.state.infected
+        # when virus is not a worm:
+        if type(virus) != Worm:
+          for neighbor in network.edges[count].adjacentNodes:
+            if network.infectedList[neighbor] != n.state.infected: 
+              if virus.infectOrNot(network, neighbor):
+                currentTurnMoves.append((count, neighbor))
+                network.infectedList[neighbor] = n.state.infected
+        # when a type of the virus is a worm    
+        else:
+          # choose the target to infect
+          neighbor = virus.chooseTarget(network, count)
+            if network.infectedList[neighbor] != n.state.infected: 
+              if virus.infectOrNot(network, neighbor)):
+                currentTurnMoves.append((count, neighbor))
+                network.infectedList[neighbor] = n.state.infected
       count += 1
-    
+
     for move in currentTurnMoves:
       network.infectedList[move[1]] = n.state.infected
     displayData.animationSteps.append(currentTurnMoves)
