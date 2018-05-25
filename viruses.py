@@ -1,4 +1,5 @@
 import numpy as N
+import Network
 import time
 
 """ this is an example virus, it has a 50% chance of infecting any neighboring viruses.
@@ -10,6 +11,7 @@ class SuperVirus:
   def infectOrNot(self, network, nodeID):
     retVal = N.random.uniform() 
     return retVal < self.chance
+
 class logicBomb:
     infectedCount = 0
     def infectOrNot(self, network, nodeID):
@@ -86,4 +88,3 @@ class worm:
         else:
           network.infectedList[nodeID] = Network.state.immune
         return retVal
-        

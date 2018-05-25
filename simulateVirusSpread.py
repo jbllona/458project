@@ -2,10 +2,14 @@ import Network as n
 import displayVirusSpread as disp
 
 
-def allInfected(network):
-  for node in network.infectedList:
-    if node == n.state.clean:
-      return False
+def nowhereToGo(network):
+  count = 1
+  for node in network.infectedList[1:]:
+    if node == n.state.infected:
+      for neighbor in network.edges[count].adjacentNodes:
+        if network.infectedList[neighbor] != n.state.infected and network.infectedList[neighbor] != n.state.immune:  
+          return False
+    count += 1
   return True
 
 def runOnce(network, startingPoint, virus):
@@ -16,31 +20,24 @@ def runOnce(network, startingPoint, virus):
   displayData.typeOfGraph = network.networkType
 
   while simulationNotOver == True:
+    hasNewAnimationInfo = False
     currentTurnMoves = []
     count = 1
     for node in network.infectedList[1:]:
       if node == n.state.infected:
-        # when virus is not a worm:
-        if type(virus) != Worm:
-          for neighbor in network.edges[count].adjacentNodes:
-            if network.infectedList[neighbor] != n.state.infected: 
-              if virus.infectOrNot(network, neighbor):
-                currentTurnMoves.append((count, neighbor))
-                network.infectedList[neighbor] = n.state.infected
-        # when a type of the virus is a worm    
-        else:
-          # choose the target to infect
-          neighbor = virus.chooseTarget(network, count)
-            if network.infectedList[neighbor] != n.state.infected: 
-              if virus.infectOrNot(network, neighbor)):
-                currentTurnMoves.append((count, neighbor))
-                network.infectedList[neighbor] = n.state.infected
+        for neighbor in network.edges[count].adjacentNodes:
+          if network.infectedList[neighbor] != n.state.infected:  
+            if virus.infectOrNot(network, neighbor):
+              currentTurnMoves.append((count, neighbor))
+              network.infectedList[neighbor] = n.state.infected
+              hasNewAnimationInfo = True
       count += 1
 
     for move in currentTurnMoves:
       network.infectedList[move[1]] = n.state.infected
-    displayData.animationSteps.append(currentTurnMoves)
+    if hasNewAnimationInfo:
+      displayData.animationSteps.append(currentTurnMoves)
     
-    if allInfected(network):
+    if nowhereToGo(network):
       simulationNotOver = False  
   disp.display(displayData)
