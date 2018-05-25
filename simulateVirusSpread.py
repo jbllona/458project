@@ -2,10 +2,14 @@ import Network as n
 import displayVirusSpread as disp
 
 
-def allInfected(network):
-  for node in network.infectedList:
-    if node == n.state.clean:
-      return False
+def nowhereToGo(network):
+  count = 1
+  for node in network.infectedList[1:]:
+    if node == n.state.infected:
+      for neighbor in network.edges[count].adjacentNodes:
+        if network.infectedList[neighbor] != n.state.infected and network.infectedList[neighbor] != n.state.immune:  
+          return False
+    count += 1
   return True
 
 def runOnce(network, startingPoint, virus):
@@ -31,6 +35,6 @@ def runOnce(network, startingPoint, virus):
       network.infectedList[move[1]] = n.state.infected
     displayData.animationSteps.append(currentTurnMoves)
     
-    if allInfected(network):
+    if nowhereToGo(network):
       simulationNotOver = False  
   disp.display(displayData)
