@@ -20,6 +20,7 @@ def runOnce(network, startingPoint, virus):
   displayData.typeOfGraph = network.networkType
 
   while simulationNotOver == True:
+    hasNewAnimationInfo = False
     currentTurnMoves = []
     count = 1
     for node in network.infectedList[1:]:
@@ -29,11 +30,13 @@ def runOnce(network, startingPoint, virus):
             if virus.infectOrNot(network, neighbor):
               currentTurnMoves.append((count, neighbor))
               network.infectedList[neighbor] = n.state.infected
+              hasNewAnimationInfo = True
       count += 1
     
     for move in currentTurnMoves:
       network.infectedList[move[1]] = n.state.infected
-    displayData.animationSteps.append(currentTurnMoves)
+    if hasNewAnimationInfo:
+      displayData.animationSteps.append(currentTurnMoves)
     
     if nowhereToGo(network):
       simulationNotOver = False  
