@@ -54,6 +54,8 @@ class trojan:
 
 class worm:
   infecteCount = 0
+  # probability to successfully infect the system
+  self.p_success = N.random.uniform(0, 1)
 
   def chooseTarget(self, network, count):
     # node that has the most number of neighbors
@@ -66,20 +68,9 @@ class worm:
         maxNode = node
     return maxNode
 
-  def infectOrNot(self, netowrk, nodeID):
-
-    nodeID = self.chooseTarget(network, count)
-    retVal = None
-
-    if network.infectedList[nodeID] == Network.state.immune:
-      retVal = False
-    else:
-      if network.infectedList[nodeID] == Network.state.clean:
-        network.infectedList[nodeID] = Network.state.suceptable
-        retVal = False
-      elif network.infectedList[nodeID] == Network.state.suceptable:
-        if network.edges[nodeID].suceptibility < self.strength:
-          retVal = True
-        else:
-          network.infectedList[nodeID] = Network.state.immune
-    return retVal
+  def infectOrNot(self, network, nodeID):
+    target = self.chooseTarget(network, count)
+    # probability to get infected of the neighboring node that has the most
+    # number of neighbors.
+    probability = network.edges[nodeID].adjacentNodes[target].p_infected 
+    return probability < self.p_success
