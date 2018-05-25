@@ -187,6 +187,7 @@ def startAnimation(computerPositions, dataToDisplay):
     linesToDraw.append(nodeToLocations(dataToDisplay.animationSteps[0], computerPositions))
 
     while not done:
+        hasCompletedALine = False
         iterationDone = False
 
         for event in pygame.event.get():
@@ -199,7 +200,8 @@ def startAnimation(computerPositions, dataToDisplay):
         elif len(linesToDraw[stepsDone]) == 0:
             stepsDone += 1
             linesToDraw.append(nodeToLocations(dataToDisplay.animationSteps[stepsDone], computerPositions))
-            pygame.time.delay(3000)
+            if hasCompletedALine:
+                pygame.time.delay(3000)
             continue
 
         screen.fill((255,255,255))
@@ -267,6 +269,7 @@ def startAnimation(computerPositions, dataToDisplay):
 
             if roundTuple(toDraw[1]) == roundTuple(line[1]):
                 iterationDone = True
+                hasCompletedALine = True
             else:
                 line[2] += totalDistance/200
         
