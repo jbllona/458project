@@ -184,6 +184,8 @@ def startAnimation(computerPositions, dataToDisplay):
     pygame.init()
     screen = pygame.display.set_mode((display_width,display_height))
     stepsDone = 0
+    if len(dataToDisplay.animationSteps) == 0:
+        return
     linesToDraw.append(nodeToLocations(dataToDisplay.animationSteps[0], computerPositions))
 
     while not done:
@@ -199,6 +201,8 @@ def startAnimation(computerPositions, dataToDisplay):
                 done = True
         elif len(linesToDraw[stepsDone]) == 0:
             stepsDone += 1
+            print(dataToDisplay.animationSteps) 
+            # if len(dataToDisplay.animationSteps) > stepsDone:
             linesToDraw.append(nodeToLocations(dataToDisplay.animationSteps[stepsDone], computerPositions))
             if hasCompletedALine:
                 pygame.time.delay(3000)

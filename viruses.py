@@ -27,7 +27,7 @@ class logicBomb:
         return False
         
 class trojan:
-  strength = N.random.uniform(0, .6)
+  strength = N.random.uniform(0, .8)
 
   def infectOrNot(self, network, nodeID):
     """ every turn, an infected node sends the virus
