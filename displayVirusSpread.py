@@ -193,7 +193,15 @@ def startAnimation(computerPositions, dataToDisplay):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-        
+
+        if stepsDone == len(dataToDisplay.animationSteps):
+                done = True
+        elif len(linesToDraw[stepsDone]) == 0:
+            stepsDone += 1
+            linesToDraw.append(nodeToLocations(dataToDisplay.animationSteps[stepsDone], computerPositions))
+            pygame.time.delay(3000)
+            continue
+
         screen.fill((255,255,255))
 
         # draw the computer images at each node, and the faint gray lines
@@ -248,7 +256,7 @@ def startAnimation(computerPositions, dataToDisplay):
         for x in range(stepsDone):
             for line in linesToDraw[x]:
                 pygame.draw.lines(screen, (255,0,0), False, (line[0],line[1]),4)
-
+        
         # draw in progress lines
         for line in linesToDraw[stepsDone]:
             totalDistance = distanceBetweenTwoPoints(line[0],line[1])
