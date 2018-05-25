@@ -1,33 +1,57 @@
 from system import System
+from enum import Enum
+import displayVirusSpread as disp
+
+class state(Enum):
+    none          = 0
+    clean         = 1
+    infected      = 2
+
+class graphType(Enum):
+    NONE          = 0
+    RING          = 1
+    STAR          = 2
+    MESH          = 3
+    ALL_CONNECTED = 4
+    BUS           = 5
+    HYBRID        = 6
+    LINE          = 7
+    TREE          = 8
+
+class Node:
+    nodeID = 0
+    adjacentNodes = None
+    def __init__(self, nodeNum):
+        self.nodeID = nodeNum
+        self.adjacentNodes = []
 
 
-class Network(object):
+class Network:
+    nodes = None
+    edges = None
+    infectedList = None
+    networkType = graphType.NONE
 
     def __init__(self, type):
-        self.nodes = []
         self.edges = {}
-        self.networktype = type
+        self.networkType = type
+        self.infectedList = [state.none]
 
     def createnetwork(self, filename):
-        fileobj = open(filename, 'r')
-        lines = fileobj.readlines()
-        
-        for i in range(len(lines)):
-            split_line = lines[i].split('\t')
-            split_line[1] = split_line[1].split('\n')[0]
-
-            found = False
-            for node in self.nodes:
-                if node.nodeNumber == split_line[0]:
-                    self.edges[split_line[0]].append(split_line[1])
-                    found = True
-
-            if found is False:
-                newNode = System(split_line[0])
-                self.nodes.append(newNode)
-                edgeList = []
-                edgeList.append(split_line[1])
-                self.edges[split_line[0]] = edgeList
+        graphArray = disp.drawGraphFromFile(filename)
+        for edge in graphArray:
+            lhs = int(edge[0])
+            rhs = int(edge[1])
+            if lhs not in self.edges:
+                self.infectedList.append(state.clean)
+                self.edges[lhs] = Node(lhs)
+                self.edges[lhs].adjacentNodes.append(rhs)
+            else:
+                self.edges[lhs].adjacentNodes.append(rhs)
+            if rhs not in self.edges:
+                self.infectedList.append(state.clean)
+                self.edges[rhs] = Node(rhs)
+                self.edges[rhs].adjacentNodes.append(lhs)
+            else:
+                self.edges[rhs].adjacentNodes.append(lhs)
             
-        fileobj.close()
-
