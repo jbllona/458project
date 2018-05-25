@@ -87,11 +87,29 @@ def getComputerLocationsOnDisplay(typeOfGraph):
             retVal.append([x, \
             centerOfFieldX + ((display_height / 3) * N.sin((x - 2) * ((2 * N.pi) / (numberOfNodes-1)))), \
             centerOfFieldY - ((display_height / 3) * N.cos((x - 2) * ((2 * N.pi) / (numberOfNodes-1))))])
-    elif typeOfGraph == graphType.RING or typeOfGraph == graphType.MESH or typeOfGraph == graphType.ALL_CONNECTED:
+    elif typeOfGraph == graphType.RING:
         centerOfFieldX = int(display_width/2)
         centerOfFieldY = int(display_height/2)
 
         numberOfNodes = N.amax(N.array(RING_GRAPH).astype(int))
+        for x in range(1, (numberOfNodes + 1)):
+            retVal.append([x, \
+            centerOfFieldX + ((display_height / 3) * N.sin((x - 2) * ((2 * N.pi) / numberOfNodes))), \
+            centerOfFieldY - ((display_height / 3) * N.cos((x - 2) * ((2 * N.pi) / numberOfNodes)))])
+    elif typeOfGraph == graphType.MESH:
+        centerOfFieldX = int(display_width/2)
+        centerOfFieldY = int(display_height/2)
+
+        numberOfNodes = N.amax(N.array(MESH_GRAPH).astype(int))
+        for x in range(1, (numberOfNodes + 1)):
+            retVal.append([x, \
+            centerOfFieldX + ((display_height / 3) * N.sin((x - 2) * ((2 * N.pi) / numberOfNodes))), \
+            centerOfFieldY - ((display_height / 3) * N.cos((x - 2) * ((2 * N.pi) / numberOfNodes)))])
+    elif typeOfGraph == graphType.ALL_CONNECTED:
+        centerOfFieldX = int(display_width/2)
+        centerOfFieldY = int(display_height/2)
+
+        numberOfNodes = N.amax(N.array(ALL_CONNECTED_GRAPH).astype(int))
         for x in range(1, (numberOfNodes + 1)):
             retVal.append([x, \
             centerOfFieldX + ((display_height / 3) * N.sin((x - 2) * ((2 * N.pi) / numberOfNodes))), \
