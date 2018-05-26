@@ -56,6 +56,7 @@ class trojan:
           retVal = True
         else:
           network.infectedList[targetID] = Network.state.immune
+          retVal = False
  
     return retVal
 
