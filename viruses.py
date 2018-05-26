@@ -6,7 +6,7 @@ import time
     Model all future viruses after this one, and make sure they have a function called 
     infectOrNot, with that same interface 
 """
-class SuperVirus:
+class SuperVirus(object):
   chance = .5
   def infectOrNot(self, network, targetID, sourceID):
     retVal = N.random.uniform()
@@ -16,7 +16,7 @@ class SuperVirus:
     else:
       return False
 
-class logicBomb:
+class LogicBomb(object):
     infectedCount = 0
     def infectOrNot(self, network, targetID, sourceID):
         #get current time in milliseconds
@@ -32,7 +32,7 @@ class logicBomb:
             return True
         return False
 
-class trojan:
+class Trojan(object):
   strength = N.random.uniform(0, .6)
  
   def infectOrNot(self, network, targetID, sourceID):
@@ -59,7 +59,7 @@ class trojan:
  
     return retVal
 
-class worm:
+class Worm(object):
   infecteCount = 0
   # probability to successfully infect the system
   p_success = N.random.uniform(0, .8)

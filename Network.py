@@ -4,7 +4,7 @@ import numpy as N
 import displayVirusSpread as disp
 
 
-class state(Enum):
+class State(Enum):
     """
         Description: state is an Enum type. none is for a non-node such as for the zeroth index/node
                      which is not used in the network. clean refers to a node that has not yet seen
@@ -19,7 +19,7 @@ class state(Enum):
     susceptible    = 3
     immune        = 4
 
-class graphType(Enum):
+class GraphType(Enum):
     """
         Description: graphType is an Enum type. NONE is for a node that does not represent the network.
                      For example zeroth node and/or index is not considered a node in the network. All
@@ -46,10 +46,12 @@ class Node:
     nodeID = -1
     adjacentNodes = None
     susceptibility = None
+    status = None
     def __init__(self, nodeNum):
         self.nodeID = nodeNum
         self.susceptibility = N.random.uniform(.0, .7)
         self.adjacentNodes = []
+        self.status = state.clean
 
 
 class Network:

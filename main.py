@@ -1,22 +1,24 @@
 # -*- coding: utf-8 -*-
 import numpy as N
-from Network import Network
+import Network
 import viruses
 
 filename = 'mesh.txt'
-network = Network('mesh')
+network = network.Network('mesh')
 network.createnetwork(filename)
 print(network.edges)
 
-virus = viruses.SuperVirus()
+virus1 = viruses.SuperVirus()
+virus2 = viruses.logicBomb()
+virus3 = viruses.trojan()
+virus4 = viruses.worm()
 
-numIter = 100    # represents 100 days
+virusList = [virus1, virus2, virus3, virus4]
 
-rand = int(N.random.uniform() * len(network.nodes.keys()))
-while rand is 0:
-    rand = int(N.random.uniform() * len(network.nodes.keys()))
+numIterations = 100    # represents 100 days
 
-network.nodes[rand].state = Network.State.infected
+# Initialize virus spread by infecting the first node in the network
+network.nodes[1].status = network.State.infected
 network.infectedList.append(network.nodes[rand].nodeID)
 
 # state = []
