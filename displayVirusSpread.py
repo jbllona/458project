@@ -2,7 +2,6 @@ import numpy as N
 import pygame
 from enum import Enum
 import sys
-from time import sleep
 
 def drawGraphFromFile(fileName):
     retVal = []
@@ -13,7 +12,6 @@ def drawGraphFromFile(fileName):
                     retVal.append(line[:line.find('\n')].split("\t"))
                 else:
                     retVal.append(line.split("\t"))
-    file.close()
     return retVal
 
 display_width  = 640
@@ -89,11 +87,29 @@ def getComputerLocationsOnDisplay(typeOfGraph):
             retVal.append([x, \
             centerOfFieldX + ((display_height / 3) * N.sin((x - 2) * ((2 * N.pi) / (numberOfNodes-1)))), \
             centerOfFieldY - ((display_height / 3) * N.cos((x - 2) * ((2 * N.pi) / (numberOfNodes-1))))])
-    elif typeOfGraph == graphType.RING or typeOfGraph == graphType.MESH or typeOfGraph == graphType.ALL_CONNECTED:
+    elif typeOfGraph == graphType.RING:
         centerOfFieldX = int(display_width/2)
         centerOfFieldY = int(display_height/2)
 
         numberOfNodes = N.amax(N.array(RING_GRAPH).astype(int))
+        for x in range(1, (numberOfNodes + 1)):
+            retVal.append([x, \
+            centerOfFieldX + ((display_height / 3) * N.sin((x - 2) * ((2 * N.pi) / numberOfNodes))), \
+            centerOfFieldY - ((display_height / 3) * N.cos((x - 2) * ((2 * N.pi) / numberOfNodes)))])
+    elif typeOfGraph == graphType.MESH:
+        centerOfFieldX = int(display_width/2)
+        centerOfFieldY = int(display_height/2)
+
+        numberOfNodes = N.amax(N.array(MESH_GRAPH).astype(int))
+        for x in range(1, (numberOfNodes + 1)):
+            retVal.append([x, \
+            centerOfFieldX + ((display_height / 3) * N.sin((x - 2) * ((2 * N.pi) / numberOfNodes))), \
+            centerOfFieldY - ((display_height / 3) * N.cos((x - 2) * ((2 * N.pi) / numberOfNodes)))])
+    elif typeOfGraph == graphType.ALL_CONNECTED:
+        centerOfFieldX = int(display_width/2)
+        centerOfFieldY = int(display_height/2)
+
+        numberOfNodes = N.amax(N.array(ALL_CONNECTED_GRAPH).astype(int))
         for x in range(1, (numberOfNodes + 1)):
             retVal.append([x, \
             centerOfFieldX + ((display_height / 3) * N.sin((x - 2) * ((2 * N.pi) / numberOfNodes))), \
@@ -168,16 +184,30 @@ def startAnimation(computerPositions, dataToDisplay):
     pygame.init()
     screen = pygame.display.set_mode((display_width,display_height))
     stepsDone = 0
+    if len(dataToDisplay.animationSteps) == 0:
+        return
     linesToDraw.append(nodeToLocations(dataToDisplay.animationSteps[0], computerPositions))
 
     while not done:
+        hasCompletedALine = False
         iterationDone = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-        
+
+        if stepsDone == len(dataToDisplay.animationSteps):
+                done = True
+        elif len(linesToDraw[stepsDone]) == 0:
+            stepsDone += 1
+            print(dataToDisplay.animationSteps) 
+            # if len(dataToDisplay.animationSteps) > stepsDone:
+            linesToDraw.append(nodeToLocations(dataToDisplay.animationSteps[stepsDone], computerPositions))
+            if hasCompletedALine:
+                pygame.time.delay(3000)
+            continue
+
         screen.fill((255,255,255))
 
         # draw the computer images at each node, and the faint gray lines
@@ -232,7 +262,7 @@ def startAnimation(computerPositions, dataToDisplay):
         for x in range(stepsDone):
             for line in linesToDraw[x]:
                 pygame.draw.lines(screen, (255,0,0), False, (line[0],line[1]),4)
-
+        
         # draw in progress lines
         for line in linesToDraw[stepsDone]:
             totalDistance = distanceBetweenTwoPoints(line[0],line[1])
@@ -243,6 +273,7 @@ def startAnimation(computerPositions, dataToDisplay):
 
             if roundTuple(toDraw[1]) == roundTuple(line[1]):
                 iterationDone = True
+                hasCompletedALine = True
             else:
                 line[2] += totalDistance/200
         
@@ -255,9 +286,8 @@ def startAnimation(computerPositions, dataToDisplay):
             else:
                 linesToDraw.append(nodeToLocations(dataToDisplay.animationSteps[stepsDone], computerPositions))
         clock.tick(60)
-    sleep(1)
-    pygame.display.quit()
-    pygame.quit()
+
+        
 
 def display(data):
     computerLocations = N.array(getComputerLocationsOnDisplay(data.typeOfGraph))
