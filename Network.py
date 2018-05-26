@@ -28,7 +28,7 @@ class Node:
     p_infected = None # probability to get infected by worm
     def __init__(self, nodeNum):
         self.nodeID = nodeNum
-        self.suceptibility = N.random.uniform(.3, 1)
+        self.suceptibility = N.random.uniform(.0, .7)
         self.adjacentNodes = []
         self.p_infected = N.random.uniform(0, 0.5)
 
