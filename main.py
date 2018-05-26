@@ -19,9 +19,9 @@ while rand is 0:
 network.nodes[rand].state = Network.State.infected
 network.infectedList.append(network.nodes[rand].nodeID)
 
-state = []
-state.append(network.infectedList)
-
-for i in range(numIter):
-    for infectedNode in network.infectedList:
-        adjNodes = network.nodes[infectedNode].adjacentNodes
+# state = []
+# state.append(network.infectedList)
+#
+# for i in range(numIter):
+#     for infectedNode in network.infectedList:
+#         adjNodes = network.nodes[infectedNode].adjacentNodes
