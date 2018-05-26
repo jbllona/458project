@@ -51,7 +51,7 @@ class Node:
         self.nodeID = nodeNum
         self.susceptibility = N.random.uniform(.0, .7)
         self.adjacentNodes = []
-        self.status = state.clean
+        self.status = State.clean
 
 
 class Network:
@@ -70,12 +70,12 @@ class Network:
     """
     nodes = None
     infectedList = None
-    networkType = graphType.NONE
+    networkType = GraphType.NONE
 
     def __init__(self, type):
         self.nodes = {}
         self.networkType = type
-        self.infectedList = [state.none]
+        self.infectedList = [State.none]
 
     def createnetwork(self, filename):
         """
@@ -98,13 +98,13 @@ class Network:
             lhs = int(pair[0])
             rhs = int(pair[1])
             if lhs not in self.nodes:
-                self.infectedList.append(state.clean)
+                self.infectedList.append(State.clean)
                 self.nodes[lhs] = Node(lhs)
                 self.nodes[lhs].adjacentNodes.append(rhs)
             else:
                 self.nodes[lhs].adjacentNodes.append(rhs)
             if rhs not in self.nodes:
-                self.infectedList.append(state.clean)
+                self.infectedList.append(State.clean)
                 self.nodes[rhs] = Node(rhs)
                 self.nodes[rhs].adjacentNodes.append(lhs)
             else:
