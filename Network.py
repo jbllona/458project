@@ -77,9 +77,19 @@ class Network:
 
     def createnetwork(self, filename):
         """
-            Description:
-            Pre:
-            Post:
+            Description: creates a network from a list of pair of numbers. For each pair in the
+                         list returned by drawGraphFromFile, if the 1st number in the pair is not already in
+                         nodes dictionary, a new Node is created for that number and the adjacentNodes
+                         list in the Node objects gets appended the second number in the pair as a neighbor.
+                         The infected list also gets appended a state.clean value to mark that a node
+                         with initial status is added. Later, the index will represent the node corresponding
+                         to that number. If the there's already a node for that 1st number, only the
+                         adjacentNodes list will get updated. Same steps will be followed for the second
+                         number in the pair.
+            Pre-Condition: filename as a string
+            Post-Condition: nodes contains the node numbers as keys and Nodes as values, infectedList
+                            contains a list of state.none values from index 1 to the highest index read
+                            from the file. Index 0 will not be used since it is not in the network.
         """
         graphArray = disp.drawGraphFromFile(filename)
         for pair in graphArray:
