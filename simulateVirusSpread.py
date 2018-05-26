@@ -12,7 +12,7 @@ def nowhereToGo(network):
     count += 1
   return True
 
-def runOnce(network, startingPoint, virus):
+def runOnce(network, startingPoint, virus, displayAnimation = True):
   network.infectedList[startingPoint] = n.state.infected
   simulationNotOver = True
 
@@ -22,16 +22,14 @@ def runOnce(network, startingPoint, virus):
   while simulationNotOver == True:
     hasNewAnimationInfo = False
     currentTurnMoves = []
-    count = 1
-    for node in network.infectedList[1:]:
-      if node == n.state.infected:
-        for neighbor in network.edges[count].adjacentNodes:
+    # currentNodeID = 1
+    for x in range(1, len(network.infectedList)):
+      if network.infectedList[x] == n.state.infected:
+        for neighbor in network.edges[x].adjacentNodes:
           if network.infectedList[neighbor] != n.state.infected:  
-            if virus.infectOrNot(network, neighbor):
-              currentTurnMoves.append((count, neighbor))
-              network.infectedList[neighbor] = n.state.infected
+            if virus.infectOrNot(network, neighbor, x):
+              currentTurnMoves.append((x, neighbor))
               hasNewAnimationInfo = True
-      count += 1
 
     for move in currentTurnMoves:
       network.infectedList[move[1]] = n.state.infected

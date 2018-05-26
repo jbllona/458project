@@ -14,7 +14,8 @@ import Network as n
 # theNetwork.createnetwork("mesh.txt")
 # sim.runOnce(theNetwork, 1, virus)
 
-virus = viruses.trojan()
+# virus = viruses.trojan()
+virus = viruses.worm()
 theNetwork = n.Network(disp.graphType.MESH)
 theNetwork.createnetwork("mesh.txt")
 sim.runOnce(theNetwork, 1, virus)
