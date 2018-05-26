@@ -32,7 +32,7 @@ def runOnce(network, startingPoint, virus):
               network.infectedList[neighbor] = n.state.infected
               hasNewAnimationInfo = True
       count += 1
-    
+
     for move in currentTurnMoves:
       network.infectedList[move[1]] = n.state.infected
     if hasNewAnimationInfo:
