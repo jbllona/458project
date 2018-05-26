@@ -54,10 +54,17 @@ class Node:
 
 class Network:
     """
-        Description: Node class represents a computer in the network. nodeID is used to identify
-                     the node, adjacentNodes is a list that stores a nodes directly connected neighbors.
-                     susceptibility var tells us if a node becomes susceptible to getting infectede
-                     from a virus.
+        Description: Network class holds all nodes in the network. nodes is a dictionary
+                     which stores a Node object for each corresponding node number. infectedList
+                     is a list, the index of which represents that particular node and the value
+                     it holds (defined enums per the state class) tells us the current status
+                     of the node corresponding to that index. networkType holds a value that
+                     represents the type of network that is being created.
+                     createnetwork() method takes as input a string filename and passed it onto
+                     drawGraphFromFile() class which returns a list of pairs of numbers. Each pair
+                     of numbers represents a connection between those two nodes. The function uses each
+                     pair to construct a Node object and a dictionary item and insert them into the
+                     corresponding data structure.
     """
     nodes = None
     infectedList = None
@@ -69,6 +76,11 @@ class Network:
         self.infectedList = [state.none]
 
     def createnetwork(self, filename):
+        """
+            Description:
+            Pre:
+            Post:
+        """
         graphArray = disp.drawGraphFromFile(filename)
         for pair in graphArray:
             lhs = int(pair[0])
