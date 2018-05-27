@@ -8,7 +8,7 @@ import time
 """
 class SuperVirus(object):
   chance = .5
-  def infectOrNot(self, network, targetID):
+  def infectOrNot(self, network, targetID, sourceID):
     retVal = N.random.uniform()
     if retVal < self.chance:
       network.infectedList[targetID] = Network.State.infected
@@ -18,7 +18,7 @@ class SuperVirus(object):
 
 class LogicBomb(object):
     infectedCount = 0
-    def infectOrNot(self, network, targetID):
+    def infectOrNot(self, network, targetID, sourceID):
         #get current time in milliseconds
         ms = int(round(time.time() * 1000))
         #Always infect if the network is 75% infected by this virus
@@ -35,7 +35,7 @@ class LogicBomb(object):
 class Trojan(object):
   strength = N.random.uniform(0, .6)
  
-  def infectOrNot(self, network, targetID):
+  def infectOrNot(self, network, targetID, sourceID):
     """ every turn, an infected node sends the virus
         to all neighbor nodes. This makes those nodes susceptible.
         On the next turn, a scceptable node is infected if its strength
@@ -59,35 +59,34 @@ class Trojan(object):
           retVal = False
     return retVal
 
-# class Worm(object):
-#   infecteCount = 0
-#   # probability to successfully infect the system
-#   p_success = N.random.uniform(0, .8)
-#
-#   def chooseTarget(self, network, source):
-#     # node that has the most number of neighbors that is not immune
-#     maxNode = None
-#     max_neighbor = 0
-#     for node in network.nodes[source].adjacentNodes:
-#       n_neighbor = len(network.nodes[node].adjacentNodes)
-#       if network.infectedList[node] != Network.State.immune and network.infectedList[node] != Network.State.infected:
-#         if (n_neighbor > max_neighbor):
-#           max_neighbor = n_neighbor
-#           maxNode = node
-#     return maxNode
-#
-#   def infectOrNot(self, network, targetID):
-#     sourceID = N.random.uniform(1, len(network.infectedList))
-#     target = self.chooseTarget(network, sourceID)
-#     # probability to get infected of the neighboring node that has the most
-#     # number of neighbors.
-#     if targetID == target:
-#       probability = network.nodes[target].p_infected
-#       if probability > self.p_success:
-#         network.infectedList[target] = Network.State.immune
-#         return False
-#       else:
-#         # network.infectedList[targetID] = Network.state.infected
-#         return True
-#     else:
-#       return False
+class Worm(object):
+  infecteCount = 0
+  # probability to successfully infect the system
+  p_success = N.random.uniform(0, .8)
+
+  def chooseTarget(self, network, source):
+    # node that has the most number of neighbors that is not immune
+    maxNode = None
+    max_neighbor = 0
+    for node in network.nodes[source].adjacentNodes:
+      n_neighbor = len(network.nodes[node].adjacentNodes)
+      if network.infectedList[node] != Network.State.immune and network.infectedList[node] != Network.State.infected:
+        if (n_neighbor > max_neighbor):
+          max_neighbor = n_neighbor
+          maxNode = node
+    return maxNode
+
+  def infectOrNot(self, network, targetID, sourceID):
+    target = self.chooseTarget(network, sourceID)
+    # probability to get infected of the neighboring node that has the most
+    # number of neighbors.
+    if targetID == target:
+      probability = network.nodes[target].susceptibility
+      if probability > self.p_success:
+        network.infectedList[target] = Network.State.immune
+        return False
+      else:
+        # network.infectedList[targetID] = Network.state.infected
+        return True
+    else:
+      return False
