@@ -7,14 +7,14 @@ import numpy as N
 import matplotlib.pyplot as plt
 
 networkSize = 50
-n_runs = 10
+n_runs = 100
 
-nodeStrengthRange = (0,.8)
+nodeStrengthRange = (0,.6)
 
 def runWorm(theNetwork):
   startingPoint = N.random.randint(1,networkSize+1)
 
-  virus = viruses.Worm((.2, 1))
+  virus = viruses.Worm((0, 1))
   sim.runOnce(theNetwork, startingPoint, virus, False)
 
   infectedCount = 0
@@ -193,13 +193,10 @@ print("Star:\t\t",N.mean(infectedPercentWormStar), N.mean(infectedPercentLogicBo
 print("Tree:\t\t",N.mean(infectedPercentWormTree), N.mean(infectedPercentLogicBombTree), N.mean(infectedPercentTrojanTree))
 
 means_worm = N.array([N.mean(infectedPercentWormMesh), N.mean(infectedPercentWormAllConnected), N.mean(infectedPercentWormLine), N.mean(infectedPercentWormRing), N.mean(infectedPercentWormStar), N.mean(infectedPercentWormTree)])
-std_worm = N.array([N.std(infectedPercentWormMesh), N.std(infectedPercentWormAllConnected), N.std(infectedPercentWormLine), N.std(infectedPercentWormRing), N.std(infectedPercentWormStar), N.std(infectedPercentWormTree)])
 
 means_logicBomb = N.array([N.mean(infectedPercentLogicBombMesh), N.mean(infectedPercentLogicBombAllConnected), N.mean(infectedPercentLogicBombLine), N.mean(infectedPercentLogicBombRing), N.mean(infectedPercentLogicBombStar), N.mean(infectedPercentLogicBombTree)])
-std_logicBomb = N.array([N.std(infectedPercentLogicBombMesh), N.std(infectedPercentLogicBombAllConnected), N.std(infectedPercentLogicBombLine), N.std(infectedPercentLogicBombRing), N.std(infectedPercentLogicBombStar), N.std(infectedPercentLogicBombTree)])
 
 means_trojan = N.array([N.mean(infectedPercentTrojanMesh), N.mean(infectedPercentTrojanAllConnected), N.mean(infectedPercentTrojanLine), N.mean(infectedPercentTrojanRing), N.mean(infectedPercentTrojanStar), N.mean(infectedPercentTrojanTree)])
-std_trojan = N.array([N.std(infectedPercentTrojanMesh), N.std(infectedPercentTrojanAllConnected), N.std(infectedPercentTrojanLine), N.std(infectedPercentTrojanRing), N.std(infectedPercentTrojanStar), N.std(infectedPercentTrojanTree)])
 
 fig, ax = plt.subplots()
 bar_width = 0.25
@@ -210,25 +207,23 @@ index = N.arange(6)
 
 rects1 = ax.bar(index, means_worm, bar_width,
                 alpha=opacity, color='r',
-                yerr=std_worm,
                 label='Worm')
 
 rects2 = ax.bar(index + bar_width, means_logicBomb, bar_width,
                 alpha=opacity, color='g',
-                yerr=std_logicBomb,
                 label='Logic Bomb')
 
 rects3 = ax.bar(index + (bar_width * 2), means_trojan, bar_width,
                 alpha=opacity, color='b',
-                yerr=std_trojan,
                 label='Trojan')
 
 ax.set_xlabel('Malware Type')
 ax.set_ylabel('Percentage of network infected')
 ax.set_title('Percentage of network infected by network type')
-ax.set_xticks(index + bar_width / 3)
+ax.set_xticks(index + bar_width)
 ax.set_xticklabels(('Mesh', 'Connected', 'Line', 'Ring', 'Star', 'Tree'))
 ax.legend()
 
 fig.tight_layout()
 plt.show()
+plt.savefig('virus-success-with-every-network.png')
