@@ -47,9 +47,9 @@ class Node:
     adjacentNodes = None
     susceptibility = None
     status = None
-    def __init__(self, nodeNum):
+    def __init__(self, nodeNum, nodeStrengthRange):
         self.nodeID = nodeNum
-        self.susceptibility = N.random.uniform(.0, .7)
+        self.susceptibility = N.random.uniform(nodeStrengthRange[0], nodeStrengthRange[1])
         self.adjacentNodes = []
         self.status = State.clean
 
@@ -77,7 +77,7 @@ class Network:
         self.networkType = type
         self.infectedList = [State.none]
 
-    def createnetwork(self, filename):
+    def createnetwork(self, filename, nodeStrengthRange = (0, 1)):
         """
             Description: creates a network from a list of pair of numbers. For each pair in the
                          list returned by drawGraphFromFile, if the 1st number in the pair is not already in
@@ -99,13 +99,13 @@ class Network:
             rhs = int(pair[1])
             if lhs not in self.nodes:
                 self.infectedList.append(State.clean)
-                self.nodes[lhs] = Node(lhs)
+                self.nodes[lhs] = Node(lhs, nodeStrengthRange)
                 self.nodes[lhs].adjacentNodes.append(rhs)
             else:
                 self.nodes[lhs].adjacentNodes.append(rhs)
             if rhs not in self.nodes:
                 self.infectedList.append(State.clean)
-                self.nodes[rhs] = Node(rhs)
+                self.nodes[rhs] = Node(rhs, nodeStrengthRange)
                 self.nodes[rhs].adjacentNodes.append(lhs)
             else:
                 self.nodes[rhs].adjacentNodes.append(lhs)
