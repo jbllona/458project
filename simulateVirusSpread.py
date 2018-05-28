@@ -55,7 +55,7 @@ def runOnce(network, startingPoint, virus, displayAnimation = True):
             simulationNotOver = False  
     if displayAnimation:
         disp.display(displayData)
-    return count,infectionRates, percentages
+    return count,infectionRates, percent_infected
 
 def checkRate(network, lastInfectedCount):
     infected_nodes_count = network.infectedList.count(n.State.infected)
