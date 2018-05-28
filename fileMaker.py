@@ -89,7 +89,7 @@ def mesh(maxNode = 10):
                     record[x, y] = True
                 
     File.close()
-    print("Mesh File made. File is named ", fileName)
+    # print("Mesh File made. File is named ", fileName)
     
 def ring(maxNode = 10):
     #fileName = "ring"+str(maxNode)+".txt"
