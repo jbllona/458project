@@ -148,7 +148,7 @@ def writePairs(File, val1, val2):
     File.write(str(val2))
     File.write("\n")
 
-def main(maxNumber = 10):
+def main(maxNumber):
     line(maxNumber)
     ring(maxNumber)
     star(maxNumber)

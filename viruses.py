@@ -10,11 +10,8 @@ class SuperVirus(object):
   chance = .5
   def infectOrNot(self, network, targetID, sourceID):
     retVal = N.random.uniform()
-    if retVal < self.chance:
-      network.infectedList[targetID] = Network.State.infected
-      return True
-    else:
-      return False
+    network.infectedList[targetID] = Network.State.infected
+    return True
 
 class LogicBomb(object):
     infectedCount = 0
@@ -55,7 +52,7 @@ class Trojan(object):
           network.infectedList[targetID] = Network.State.infected
           retVal = True
         else:
-          network.infectedList[targetID] = Network.state.immune
+          network.infectedList[targetID] = Network.State.immune
           retVal = False
     return retVal
 

@@ -37,7 +37,6 @@ def runOnce(network, startingPoint, virus, displayAnimation = True):
               currentTurnMoves.append((x, neighbor))
               hasNewAnimationInfo = True
     percent_infected.append(percentage(network))
-    print(percentage(network))
     for move in currentTurnMoves:
       network.infectedList[move[1]] = n.State.infected
 
@@ -48,8 +47,6 @@ def runOnce(network, startingPoint, virus, displayAnimation = True):
     if nowhereToGo(network):
       simulationNotOver = False  
   
-  print(steps)
-  print(percent_infected)
   if displayAnimation:
     disp.display(displayData)
   return percent_infected, steps
