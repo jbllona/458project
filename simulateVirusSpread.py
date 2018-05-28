@@ -13,7 +13,7 @@ def nowhereToGo(network):
   return True
 
 def runOnce(network, startingPoint, virus, displayAnimation = True):
-  network.infectedList[startingPoint] = n.state.infected
+  network.infectedList[startingPoint] = n.State.infected
   simulationNotOver = True
 
   displayData = disp.dataToDisplay()
@@ -28,7 +28,7 @@ def runOnce(network, startingPoint, virus, displayAnimation = True):
     currentTurnMoves = []
     # currentNodeID = 1
     for x in range(1, len(network.infectedList)):
-      if network.infectedList[x] == n.state.infected:
+      if network.infectedList[x] == n.State.infected:
         for neighbor in network.edges[x].adjacentNodes:
           if network.infectedList[neighbor] != n.state.infected:  
             if virus.infectOrNot(network, neighbor, x):
@@ -44,17 +44,22 @@ def runOnce(network, startingPoint, virus, displayAnimation = True):
     
     if nowhereToGo(network):
       simulationNotOver = False  
-  disp.display(displayData)
-  drawGraph(displayData.animationSteps, percent_infected)
-  #return displayData.animationSteps
+  if (displayAnimation):
+    disp.display(displayData)
+  return displayData.animationSteps, percent_infected
 
 
 # function to calculate the infection percentage of network. 
 def percentage(network):
-  return len(network.infectedList) / len(network.node) * 100
+  return len(network.infectedList) / len(network.nodes) * 100
 
 
 # draw a xy plot that shows the percentage of infected system in network per step 
 def drawGraph(time_turns, percentage):
     fig1 = plt.figure() # plot time turns vs percentage of infected network/system
+    fig1.title("Infected rate per steps")
+    fig.xlabel("Time steps")
+    fig.ylabel("percentage of infection")
     fig1.plot(time_turns, percentage)
+    fig1.show()
+
