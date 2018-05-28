@@ -8,7 +8,7 @@ import time
 """
 class SuperVirus(object):
   chance = .5
-  def infectOrNot(self, network, targetID, sourceID):
+  def infectOrNot(self, network, targetID):
     retVal = N.random.uniform()
     if retVal < self.chance:
       network.infectedList[targetID] = Network.State.infected
@@ -18,7 +18,7 @@ class SuperVirus(object):
 
 class LogicBomb(object):
     infectedCount = 0
-    def infectOrNot(self, network, targetID, sourceID):
+    def infectOrNot(self, network, targetID):
         #get current time in milliseconds
         ms = int(round(time.time() * 1000))
         #Always infect if the network is 75% infected by this virus
@@ -35,7 +35,7 @@ class LogicBomb(object):
 class Trojan(object):
   strength = N.random.uniform(0, .6)
  
-  def infectOrNot(self, network, targetID, sourceID):
+  def infectOrNot(self, network, targetID):
     """ every turn, an infected node sends the virus
         to all neighbor nodes. This makes those nodes susceptible.
         On the next turn, a scceptable node is infected if its strength
@@ -89,4 +89,4 @@ class Worm(object):
         # network.infectedList[targetID] = Network.state.infected
         return True
     else:
-      return False
+        return False

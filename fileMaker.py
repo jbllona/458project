@@ -9,14 +9,21 @@ star, mesh, fully connected, line, and tree. If you would like to create an
 individual file, you call the method responsible for creating it. By default, 
 each method will create a network with 10 nodes that are bidirectional. If you
 pass in an integer value to the method, you can vary the size of the number of
-nodes. Additionaly, you can call the main method to create every type of network
-file. By default, they will all have 10 nodes, but if you pass a interger value,
+nodes. Additionally, you can call the main method to create every type of network
+file. By default, they will all have 10 nodes, but if you pass a integer value,
 you can vary the size.
 
 Note: Code written for Python 3.6
 
 
 Notes to Use:
+    import fileMaker
+    call individual methods
+        Example
+        fileMaker.star(n)
+
+
+    IGNORE, ONLY USE IF YOU UN-COMMENT EVAL LINE AT THE BOTTOM
     if you are in a linux enviroment, make sure to chmod +x the file
     run the script by using ./fileMaker 'method()'
     for example ./fileMaker 'main(14)' or ./fileMaker 'star(14)'
