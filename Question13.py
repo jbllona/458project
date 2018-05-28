@@ -23,32 +23,32 @@ Type = "Worm"
 
 theNetwork = n.Network(disp.graphType.LINE)
 theNetwork.createnetwork("line.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Line")
 
 theNetwork = n.Network(disp.graphType.RING)
 theNetwork.createnetwork("ring.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Ring")
 
 theNetwork = n.Network(disp.graphType.MESH)
 theNetwork.createnetwork("mesh.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Mesh")
 
 theNetwork = n.Network(disp.graphType.ALL_CONNECTED)
 theNetwork.createnetwork("fullconnect.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Fully Connected")
 
 theNetwork = n.Network(disp.graphType.STAR)
 theNetwork.createnetwork("star.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Star")
 
 theNetwork = n.Network(disp.graphType.TREE)
 theNetwork.createnetwork("tree.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Tree")
 
 virus = viruses.Trojan()
@@ -56,32 +56,32 @@ Type = "Trojan"
 
 theNetwork = n.Network(disp.graphType.LINE)
 theNetwork.createnetwork("line.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Line")
 
 theNetwork = n.Network(disp.graphType.RING)
 theNetwork.createnetwork("ring.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Ring")
 
 theNetwork = n.Network(disp.graphType.MESH)
 theNetwork.createnetwork("mesh.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Mesh")
 
 theNetwork = n.Network(disp.graphType.ALL_CONNECTED)
 theNetwork.createnetwork("fullconnect.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Fully Connected")
 
 theNetwork = n.Network(disp.graphType.STAR)
 theNetwork.createnetwork("star.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Star")
 
 theNetwork = n.Network(disp.graphType.TREE)
 theNetwork.createnetwork("tree.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Tree")
 
 virus = viruses.LogicBomb()
@@ -90,30 +90,30 @@ Type = "Logic Bomb"
 
 theNetwork = n.Network(disp.graphType.LINE)
 theNetwork.createnetwork("line.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Line")
 
 theNetwork = n.Network(disp.graphType.RING)
 theNetwork.createnetwork("ring.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Ring")
 
 theNetwork = n.Network(disp.graphType.MESH)
 theNetwork.createnetwork("mesh.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Mesh")
 
 theNetwork = n.Network(disp.graphType.ALL_CONNECTED)
 theNetwork.createnetwork("fullconnect.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Fully Connected")
 
 theNetwork = n.Network(disp.graphType.STAR)
 theNetwork.createnetwork("star.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Star")
 
 theNetwork = n.Network(disp.graphType.TREE)
 theNetwork.createnetwork("tree.txt")
-numberOfSteps, infectionRates = sim.runOnce(theNetwork, 1, virus, )
+numberOfSteps, infectionRates, percentatages = sim.runOnce(theNetwork, 1, virus, )
 drawGraph(numberOfSteps, infectionRates, Type, "Tree")

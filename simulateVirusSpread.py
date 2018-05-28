@@ -27,6 +27,9 @@ def runOnce(network, startingPoint, virus, displayAnimation = True):
     rate = 0
     infectionRates = []
     
+    percent_infected = []
+    percent_infected.append(percentage(network))
+    
     while simulationNotOver == True:
         count+=1
         print(count)
@@ -42,6 +45,7 @@ def runOnce(network, startingPoint, virus, displayAnimation = True):
                             hasNewAnimationInfo = True
         rate, infectedCount = checkRate(network, infectedCount)
         infectionRates.append(rate)
+        percent_infected.append(percentage(network))
         for move in currentTurnMoves:
             network.infectedList[move[1]] = n.State.infected
         if hasNewAnimationInfo:
@@ -49,9 +53,9 @@ def runOnce(network, startingPoint, virus, displayAnimation = True):
         
         if nowhereToGo(network):
             simulationNotOver = False  
-        if displayAnimation:
-            disp.display(displayData)
-    return count,infectionRates
+    if displayAnimation:
+        disp.display(displayData)
+    return count,infectionRates, percentages
 
 def checkRate(network, lastInfectedCount):
     infected_nodes_count = network.infectedList.count(n.State.infected)
@@ -61,8 +65,8 @@ def checkRate(network, lastInfectedCount):
         return 0, lastInfectedCount    
         
 def percentage(network):
-    infected_nodes = network.infectedList.count(n.State.infected)
+    newList = N.array(network.infectedList)
+    infected_nodes = N.where(newList == n.State.infected)
     print(infected_nodes)
-    return 100.0 * infected_nodes / len(network.nodes)
-    
+    return 100.0 * len(infected_nodes) / len(network.nodes)
 
