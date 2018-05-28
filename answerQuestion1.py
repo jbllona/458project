@@ -14,7 +14,7 @@ nodeStrengthRange = (0,.6)
 def runWorm(theNetwork):
   startingPoint = N.random.randint(1,networkSize+1)
 
-  virus = viruses.Worm((0, 1))
+  virus = viruses.Worm((0, .3))
   sim.runOnce(theNetwork, startingPoint, virus, False)
 
   infectedCount = 0
@@ -226,4 +226,4 @@ ax.legend()
 
 fig.tight_layout()
 plt.show()
-plt.savefig('virus-success-with-every-network.png')
+fig.savefig('virus-success-with-every-network.png')
