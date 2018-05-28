@@ -71,7 +71,10 @@ class Trojan(object):
 class Worm(object):
   infecteCount = 0
   # probability to successfully infect the system
-  p_success = N.random.uniform(0, .8)
+  p_success = None
+
+  def __init__(self, strengthRange = (0, .8)):
+    self.p_success = N.random.uniform(strengthRange[0], strengthRange[1])
 
   def chooseTarget(self, network, source):
     # node that has the most number of neighbors that is not immune
@@ -91,11 +94,10 @@ class Worm(object):
     # number of neighbors.
     if targetID == target:
       probability = network.nodes[target].susceptibility
-      if probability > self.p_success:
+      if probability < self.p_success:
         network.infectedList[target] = Network.State.immune
         return False
       else:
-        # network.infectedList[targetID] = Network.state.infected
         return True
     else:
       return False
