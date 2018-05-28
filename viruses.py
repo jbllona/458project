@@ -64,7 +64,7 @@ class Trojan(object):
           network.infectedList[targetID] = Network.State.infected
           retVal = True
         else:
-          network.infectedList[targetID] = Network.state.immune
+          network.infectedList[targetID] = Network.State.immune
           retVal = False
     return retVal
 
