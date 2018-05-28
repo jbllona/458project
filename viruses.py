@@ -26,17 +26,17 @@ class LogicBomb(object):
         else:
             #Always infect if the network is 75% infected by this virus
             if(self.infectedCount>int(len(network.nodes)*.75)):
-                print("in infect everything")
+                time.sleep(.0001)
                 network.infectedList[targetID] = Network.State.infected
                 return True
             #of infect if the current time modulus 5 is 0
             elif(ms % 5 == 0):
-                print("in infect")
+                time.sleep(.0001)
                 self.infectedCount+=1
                 network.infectedList[targetID] = Network.State.infected
                 return True
             elif(ms % 7 == 0):
-                print("in immune")
+                time.sleep(.0001)
                 network.infectedList[targetID] = Network.State.immune
                 return False
         return False
