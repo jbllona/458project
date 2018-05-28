@@ -18,4 +18,5 @@ import Network as n
 virus = viruses.Worm()
 theNetwork = n.Network(disp.graphType.MESH)
 theNetwork.createnetwork("mesh.txt")
-sim.runOnce(theNetwork, 1, virus)
+percent_infected, time_turns = sim.runOnce(theNetwork, 1, virus)
+sim.drawGraph(time_turns, percent_infected)
