@@ -31,30 +31,29 @@ def runOnce(network, startingPoint, virus, displayAnimation = True):
     percent_infected.append(percentage(network))
     
     while simulationNotOver == True:
-        count+=1
-        print(count)
-        hasNewAnimationInfo = False
-        currentTurnMoves = []
-        # currentNodeID = 1
-        for x in range(1, len(network.infectedList)):
-            if network.infectedList[x] == n.State.infected:
-                for neighbor in network.nodes[x].adjacentNodes:
-                    if network.infectedList[neighbor] != n.State.infected:  
-                        if virus.infectOrNot(network, neighbor, x):
-                            currentTurnMoves.append((x, neighbor))
-                            hasNewAnimationInfo = True
-        rate, infectedCount = checkRate(network, infectedCount)
-        infectionRates.append(rate)
-        percent_infected.append(percentage(network))
-        for move in currentTurnMoves:
-            network.infectedList[move[1]] = n.State.infected
-        if hasNewAnimationInfo:
-            displayData.animationSteps.append(currentTurnMoves)
-        
-        if nowhereToGo(network):
-            simulationNotOver = False  
-    if displayAnimation:
-        disp.display(displayData)
+      count+=1
+      hasNewAnimationInfo = False
+      currentTurnMoves = []
+      # currentNodeID = 1
+      for x in range(1, len(network.infectedList)):
+        if network.infectedList[x] == n.State.infected:
+          for neighbor in network.nodes[x].adjacentNodes:
+            if network.infectedList[neighbor] != n.State.infected:  
+              if virus.infectOrNot(network, neighbor, x):
+                currentTurnMoves.append((x, neighbor))
+                hasNewAnimationInfo = True
+      rate, infectedCount = checkRate(network, infectedCount)
+      infectionRates.append(rate)
+      percent_infected.append(percentage(network))
+      for move in currentTurnMoves:
+        network.infectedList[move[1]] = n.State.infected
+      if hasNewAnimationInfo:
+        displayData.animationSteps.append(currentTurnMoves)
+      
+      if nowhereToGo(network):
+        simulationNotOver = False  
+        if displayAnimation:
+          disp.display(displayData)
     return count,infectionRates, percent_infected
 
 def checkRate(network, lastInfectedCount):
@@ -67,6 +66,5 @@ def checkRate(network, lastInfectedCount):
 def percentage(network):
     newList = N.array(network.infectedList)
     infected_nodes = N.where(newList == n.State.infected)
-    print(infected_nodes)
     return 100.0 * len(infected_nodes) / len(network.nodes)
 
