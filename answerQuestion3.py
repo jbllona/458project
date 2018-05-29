@@ -10,9 +10,15 @@ networkSize = 50
 n_runs = 100
 nodeStrengthRange = (0,.6)
 
-def runWorm(theNetwork, startingPoint):
+def runSimulation(theNetwork, startingPoint, virus):
 
-  virus = viruses.LogicBomb()
+  if virus == "LB":
+    virus = viruses.LogicBomb()
+  if virus == "W":
+    virus = viruses.Worm((0,.1))
+  else:
+    virus = viruses.Trojan()
+
   sim.runOnce(theNetwork, startingPoint, virus, False)
 
   infectedCount = 0
@@ -26,9 +32,17 @@ def runWorm(theNetwork, startingPoint):
 
 fileMaker.tree(networkSize)
 
-infectedPercentRootTree   = []
-infectedPercentMiddleTree = []
-infectedPercentLeafTree = []
+infectedPercentRootTreeWorm   = []
+infectedPercentMiddleTreeWorm = []
+infectedPercentLeafTreeWorm = []
+
+infectedPercentRootTreeLogicBomb   = []
+infectedPercentMiddleTreeLogicBomb = []
+infectedPercentLeafTreeLogicBomb = []
+
+infectedPercentRootTreeTrojan   = []
+infectedPercentMiddleTreeTrojan = []
+infectedPercentLeafTreeTrojan = []
 
 for x in range(n_runs):
   print(x)
@@ -36,36 +50,102 @@ for x in range(n_runs):
   theNetwork = n.Network(disp.graphType.TREE)
   theNetwork.createnetwork("tree.txt", nodeStrengthRange)
 
-  infectedPercentRootTree.append(runWorm(theNetwork, 1))
+  infectedPercentRootTreeWorm.append(runSimulation(theNetwork, 1, "W"))
 
   theNetwork = n.Network(disp.graphType.TREE)
   theNetwork.createnetwork("tree.txt", nodeStrengthRange)
 
-  infectedPercentMiddleTree.append(runWorm(theNetwork, int(networkSize/2)))
+  infectedPercentMiddleTreeWorm.append(runSimulation(theNetwork, int(networkSize/2), "W"))
 
   theNetwork = n.Network(disp.graphType.TREE)
   theNetwork.createnetwork("tree.txt", nodeStrengthRange)
 
-  infectedPercentLeafTree.append(runWorm(theNetwork, networkSize))
+  infectedPercentLeafTreeWorm.append(runSimulation(theNetwork, networkSize, "W"))
   
-infectedPercentRootTree = N.array(infectedPercentRootTree)
-infectedPercentMiddleTree = N.array(infectedPercentMiddleTree)
-infectedPercentLeafTree = N.array(infectedPercentLeafTree)
+virus = viruses.LogicBomb()  
+for x in range(n_runs):
+  print(x)
 
-means = [N.mean(infectedPercentRootTree),N.mean(infectedPercentMiddleTree), N.mean(infectedPercentLeafTree)]
+  theNetwork = n.Network(disp.graphType.TREE)
+  theNetwork.createnetwork("tree.txt", nodeStrengthRange)
 
-print(means)
+  infectedPercentRootTreeLogicBomb.append(runSimulation(theNetwork, 1, "LB"))
 
-bar_width = 0.4
+  theNetwork = n.Network(disp.graphType.TREE)
+  theNetwork.createnetwork("tree.txt", nodeStrengthRange)
+
+  infectedPercentMiddleTreeLogicBomb.append(runSimulation(theNetwork, int(networkSize/2), "LB"))
+
+  theNetwork = n.Network(disp.graphType.TREE)
+  theNetwork.createnetwork("tree.txt", nodeStrengthRange)
+
+  infectedPercentLeafTreeLogicBomb.append(runSimulation(theNetwork, networkSize, "LB"))
+
+virus = viruses.Trojan()  
+for x in range(n_runs):
+  print(x)
+
+  theNetwork = n.Network(disp.graphType.TREE)
+  theNetwork.createnetwork("tree.txt", nodeStrengthRange)
+
+  infectedPercentRootTreeTrojan.append(runSimulation(theNetwork, 1, "T"))
+
+  theNetwork = n.Network(disp.graphType.TREE)
+  theNetwork.createnetwork("tree.txt", nodeStrengthRange)
+
+  infectedPercentMiddleTreeTrojan.append(runSimulation(theNetwork, int(networkSize/2), "T"))
+
+  theNetwork = n.Network(disp.graphType.TREE)
+  theNetwork.createnetwork("tree.txt", nodeStrengthRange)
+
+  infectedPercentLeafTreeTrojan.append(runSimulation(theNetwork, networkSize, "T"))
+
+infectedPercentRootTreeWorm = N.array(infectedPercentRootTreeWorm)
+infectedPercentMiddleTreeWorm = N.array(infectedPercentMiddleTreeWorm)
+infectedPercentLeafTreeWorm = N.array(infectedPercentLeafTreeWorm)
+
+infectedPercentRootTreeLogicBomb = N.array(infectedPercentRootTreeLogicBomb)
+infectedPercentMiddleTreeLogicBomb = N.array(infectedPercentMiddleTreeLogicBomb)
+infectedPercentLeafTreeLogicBomb = N.array(infectedPercentLeafTreeLogicBomb)
+
+infectedPercentRootTreeTrojan = N.array(infectedPercentRootTreeTrojan)
+infectedPercentMiddleTreeTrojan = N.array(infectedPercentMiddleTreeTrojan)
+infectedPercentLeafTreeTrojan = N.array(infectedPercentLeafTreeTrojan)
+
+meansWorm = [N.mean(infectedPercentRootTreeWorm),N.mean(infectedPercentMiddleTreeWorm), N.mean(infectedPercentLeafTreeWorm)]
+meansLB   = [N.mean(infectedPercentRootTreeLogicBomb),N.mean(infectedPercentMiddleTreeLogicBomb), N.mean(infectedPercentLeafTreeLogicBomb)]
+meansTrojan = [N.mean(infectedPercentRootTreeTrojan),N.mean(infectedPercentMiddleTreeTrojan), N.mean(infectedPercentLeafTreeTrojan)]
+
+print(meansWorm)
+
+bar_width = 0.125
 bar_locations = N.array([1,1.5,2])
 fig, ax = plt.subplots()
-plt.bar(bar_locations, means, bar_width, alpha=.4, color='g')
-plt.xticks(bar_locations, ('Root', 'Middle','Leaf'))
+plt.bar(bar_locations, 
+        meansWorm, bar_width, 
+        alpha=.4, 
+        color='r', 
+        label='Worm')
+
+plt.bar(bar_locations + bar_width, 
+        meansLB, 
+        bar_width, 
+        alpha=.4,
+        color='g',
+        label='Logic Bomb')
+
+plt.bar(bar_locations + (bar_width*2), 
+        meansTrojan, 
+        bar_width, 
+        alpha=.4, 
+        color='b', 
+        label='Trojan')
+
+plt.xticks(bar_locations+bar_width, ('Root', 'Middle','Leaf'))
 plt.ylabel('percentage infected')
 plt.xlabel('Infection location')
 plt.title('Tree infection rate vs. initial infection location')
-plt.text(bar_locations[0],means[0], str(round(means[0],2)), ha='center', color='b')
-plt.text(bar_locations[1],means[1], str(round(means[1],2)), ha='center', color='b')
-plt.text(bar_locations[2],means[2], str(round(means[2],2)), ha='center', color='b')
+plt.legend()
+
 plt.show()
 fig.savefig('tree-start-locations.png')
