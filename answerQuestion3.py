@@ -7,12 +7,12 @@ import numpy as N
 import matplotlib.pyplot as plt
 
 networkSize = 50
-n_runs = 1000
+n_runs = 100
 nodeStrengthRange = (0,.6)
 
 def runWorm(theNetwork, startingPoint):
 
-  virus = viruses.Trojan()
+  virus = viruses.LogicBomb()
   sim.runOnce(theNetwork, startingPoint, virus, False)
 
   infectedCount = 0
