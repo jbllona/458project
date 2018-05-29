@@ -38,5 +38,5 @@ def runOnce(network, startingPoint, virus, displayAnimation = True):
     
     if nowhereToGo(network):
       simulationNotOver = False  
-    if displayAnimation:
-      disp.display(displayData)
+      if displayAnimation:
+        disp.display(displayData)
