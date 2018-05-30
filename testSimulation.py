@@ -6,20 +6,20 @@ import fileMaker as fm
 
 
 
-# virus = viruses.superVirus()
+#virus = viruses.SuperVirus()
 # theNetwork = n.Network(disp.graphType.MESH)
 # theNetwork.createnetwork("mesh.txt")
 # sim.runOnce(theNetwork, 1, virus)
 
-# virus = viruses.logicBomb()
+#virus = viruses.LogicBomb()
 # theNetwork = n.Network(disp.graphType.MESH)
 # theNetwork.createnetwork("mesh.txt")
 # sim.runOnce(theNetwork, 1, virus)
 
-# virus = viruses.trojan()
-fm.main()
-virus = viruses.Worm()
-theNetwork = n.Network(disp.graphType.LINE)
-theNetwork.createnetwork("line.txt")
+virus = viruses.Trojan()
+#fm.main()
+#virus = viruses.Worm()
+theNetwork = n.Network(disp.graphType.STAR)
+theNetwork.createnetwork("star.txt")
 count,infectionRates, percent_infected = sim.runOnce(theNetwork, 1, virus, True)
 #sim.drawGraph(time_turns, percent_infected)
