@@ -37,6 +37,8 @@ import random
 import sys
 
 def line(maxNode):
+    if(maxNode < 2):
+        raise Exception('Cannot create shape with 1 node')
     #fileName = "line"+str(maxNode)+".txt"
     fileName = "line.txt"
     File = open(fileName,"w")
@@ -48,6 +50,8 @@ def line(maxNode):
     print("Line File made. File is named ", fileName)
     
 def fullConnected(maxNode = 10):
+    if(maxNode < 2):
+        raise Exception('Cannot create shape with 1 node')
     record = np.zeros((maxNode+1,maxNode+1),dtype=bool)
     #fileName = "fullyConnected"+str(maxNode)+".txt"
     fileName = "fullconnect.txt"
@@ -71,6 +75,8 @@ def fullConnected(maxNode = 10):
     print("Fully connected File made. File is named ", fileName)
     
 def mesh(maxNode = 10):
+    if(maxNode < 2):
+        raise Exception('Cannot create shape with 1 node')
     record = np.zeros((maxNode+1,maxNode+1),dtype=bool)
     #fileName = "mesh"+str(maxNode)+".txt"
     fileName = "mesh.txt"
@@ -92,6 +98,8 @@ def mesh(maxNode = 10):
     # print("Mesh File made. File is named ", fileName)
     
 def ring(maxNode = 10):
+    if(maxNode < 2):
+        raise Exception('Cannot create shape with 1 node')
     #fileName = "ring"+str(maxNode)+".txt"
     fileName = "ring.txt"
     File = open(fileName,"w")
@@ -104,6 +112,8 @@ def ring(maxNode = 10):
     print("Ring File made. File is named ", fileName)
     
 def star(maxNode = 10):
+    if(maxNode < 2):
+        raise Exception('Cannot create shape with 1 node')
     #fileName = "star"+str(maxNode)+".txt"
     fileName = "star.txt"
     File = open(fileName,"w")
@@ -115,6 +125,8 @@ def star(maxNode = 10):
     print("Star File made. File is named ", fileName)
     
 def tree(maxNode = 10):
+    if(maxNode < 2):
+        raise Exception('Cannot create shape with 1 node')
     #fileName = "tree"+str(maxNode)+".txt"
     fileName = "tree.txt"
     File = open(fileName,"w")
