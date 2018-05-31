@@ -13,10 +13,11 @@ virus = viruses.Worm()
 
 time_taken = []
 
-size_of_network = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-#for i in range(len(size_of_network)):
+nod_strengths = [(0, 0.2), (0.2, 0.4), (0.4, 0.6), (0.6, 0.8), (0.8, 1.0)]
+
+#for i in range(len(nod_strengths)):
 for i in range(10):    
-    fm.main(size_of_network[i])
+    fm.main(nod_strengths[i])
     line_Network = n.Network(disp.graphType.LINE)
     line_Network.createnetwork("line.txt")
     ring_Network = n.Network(disp.graphType.RING)

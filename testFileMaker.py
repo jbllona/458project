@@ -1,12 +1,3 @@
-"""
-testFileMaker.py
-
-Description: This file is meant to test if the fileMaker is able to create files
-            of varying sizes. As long as it creates the file, the test will pass
-
-Notes: N/A
-"""
-
 import fileMaker
 
 # NONE = 0
@@ -21,9 +12,7 @@ import fileMaker
 
 maker = {0:fileMaker.star, 1:fileMaker.tree, 2:fileMaker.ring, 
             3:fileMaker.line , 4:fileMaker.fullConnected, 5:fileMaker.mesh }
-            
 shapes = {0:"star", 1:"tree", 2:"ring", 3:"line" , 4:"fullConnected", 5:"mesh" }
-
 for shape in range(0,6):
     print("Entering", shapes[shape], "tests")
     for x in range (1,101,1):
