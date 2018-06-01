@@ -1,3 +1,13 @@
+"""
+Answer to Question 9
+
+Description: 
+            This file is for answering question 9 in the analysis document.
+            The code below simulates the virus spread and creates a graph
+            of time verses the node strength.
+"""
+
+
 import simulateVirusSpread as sim
 import displayVirusSpread as disp
 import viruses
