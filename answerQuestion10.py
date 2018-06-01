@@ -21,7 +21,7 @@ def runSimulation(theNetwork, startingPoint, virus):
         specifying the starting point. virus is the type of virus and is either a Trojan
         or a Worm object.
     Post:
-        
+        returns the infectedPercent
     """
     if virus == "W":
         virus = viruses.Worm()
