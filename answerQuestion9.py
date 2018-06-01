@@ -28,12 +28,18 @@ strength_scale = ['High', 'Medium', 'Low']
 virus = viruses.Trojan()
 for i in range(len(node_strengths)):
     """
+    Description:
         For the length of the node_strenths array, each time a network for each
         type of network is created consisting of 50 nodes. Then runOnce() method of
         simulateVirusSpread module is called which returns the time it took to
         run the simulation, infection rates, and percent of infected nodes in the
         network. The times taken are appended to the time_taken_Trojan array each
         iteration.
+    Pre:
+        time_taken_Trojan and time_taken_Worm do not contain any data
+    Post:
+        time_taken_Trojan and time_taken_Worm will be populated with data about
+        how much time it took for each simulation run for each type of network.
     """
     fm.main(50)
     line_Network = n.Network(disp.graphType.LINE)
