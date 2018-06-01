@@ -1,4 +1,3 @@
-from system import System
 from enum import Enum
 import numpy as N
 import displayVirusSpread as disp
