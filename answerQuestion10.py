@@ -10,6 +10,19 @@ networkSize = 50
 n_runs = 100
 
 def runSimulation(theNetwork, startingPoint, virus):
+    """
+    Description:
+        This function calls runSimulation passing in the network, starting point for the virus
+        to start, the virus, and a True/False value. The infected percentage is then calcualted
+        by getting the infectedCount array and counting the number of infected and dividing by
+        network size.
+    Pre:
+        theNetwork is a Network object predefined. startingPoint is an integer value
+        specifying the starting point. virus is the type of virus and is either a Trojan
+        or a Worm object.
+    Post:
+        
+    """
     if virus == "W":
         virus = viruses.Worm()
     else:
